@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">App Saenz Pena</string>
+
+    <!-- Main Activity -->
+    <string name="title_screen">Bienvenido</string>
+    <string name="hint_user">Usuario</string>
+    <string name="hint_pass">Password</string>
+    <string name="login">Login</string>
+
+    <!-- Wellcome Activity -->
+    <string name="wellcome_screen">Bienvenido</string>
+    <string name="candidatos">Candidatos</string>
+    <string name="escrutinio">Escrutinio</string>
+    <string name="padron">Padron</string>
+    <string name="votar">Votar</string>
+
 </resources>

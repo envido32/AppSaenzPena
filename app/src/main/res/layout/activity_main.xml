@@ -1,18 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.electiva.envido32.appsaenzpena.MainActivity">
 
+    <android.support.v7.widget.Toolbar
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/appbar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:minHeight="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
+    </android.support.v7.widget.Toolbar>
+
     <TextView
+        android:id="@+id/textSaludos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_below="@+id/appbar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25sp"
+        android:text="@string/wellcome_screen"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_heightPercent="15%"
+        app:layout_widthPercent="50%" />
 
-</android.support.constraint.ConstraintLayout>
+    <Button
+        android:id="@+id/buttonCandatos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/candidatos"
+        android:layout_below="@+id/textSaludos"
+        android:layout_centerHorizontal="true"
+        app:layout_widthPercent="50%"
+        android:layout_marginTop="25dp" />
+
+
+    <Button
+        android:id="@+id/buttonPadron"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/padron"
+        android:layout_below="@+id/buttonCandatos"
+        android:layout_centerHorizontal="true"
+        app:layout_widthPercent="50%"
+        android:layout_marginTop="25dp" />
+
+    <Button
+        android:id="@+id/buttonVotar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/votar"
+        android:layout_below="@+id/buttonPadron"
+        android:layout_centerHorizontal="true"
+        app:layout_widthPercent="50%"
+        android:layout_marginTop="25dp" />
+
+    <Button
+        android:id="@+id/buttonEscrutineo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/escrutinio"
+        android:layout_below="@+id/buttonVotar"
+        android:layout_centerHorizontal="true"
+        app:layout_widthPercent="50%"
+        android:layout_marginTop="25dp" />
+
+</android.support.percent.PercentRelativeLayout>
+
+
