@@ -30,7 +30,7 @@ public class SplashActivity extends AppCompatActivity {
             public void run()
             {
                 // Start the next activity
-                Intent mainIntent = new Intent().setClass(SplashActivity.this, LoginActivity.class);
+                Intent mainIntent = new Intent().setClass(getBaseContext(), LoginActivity.class);
                 startActivity(mainIntent);
                 // Terminamos la activity para que el usuario no pueda volver para atrás con el botón de back
                 finish();

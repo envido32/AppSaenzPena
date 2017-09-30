@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //Creamos el Intent
                 Intent intent =
-                        new Intent(MainActivity.this, CandidatosActivity.class);
+                        new Intent(getBaseContext(), CandidatosActivity.class);
 
                 //Iniciamos la nueva actividad
                 startActivity(intent);
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_settings:
                 //Creamos el Intent
                 Intent intent =
-                        new Intent(MainActivity.this, SettingsActivity.class);
+                        new Intent(getBaseContext(), SettingsActivity.class);
 
                 //Iniciamos la nueva actividad
                 startActivity(intent);

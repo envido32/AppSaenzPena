@@ -31,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
                         && usrPass.getText().toString().equals("1234")) {
                     //Creamos el Intent
                     Intent intent =
-                            new Intent(LoginActivity.this, MainActivity.class);
+                            new Intent(getBaseContext(), MainActivity.class);
 
                     //Creamos la información a pasar entre actividades
                     Bundle bundleInfo = new Bundle();
