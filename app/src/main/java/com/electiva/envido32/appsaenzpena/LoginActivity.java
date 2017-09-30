@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
                 else{
-                    Toast.makeText(getApplicationContext(), "Nombre de usuario y/o contraseña incorreto", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.pass_error, Toast.LENGTH_LONG).show();
                 }
             }
         });

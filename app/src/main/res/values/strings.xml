@@ -7,11 +7,16 @@
     <string name="hint_pass">Password</string>
     <string name="login">Login</string>
 
+    <!-- Login Activity -->
+    <string name="pass_error">Nombre de usuario y/o contraseña incorrecto.</string>
+
     <!-- Wellcome Activity -->
     <string name="wellcome_screen">Bienvenido</string>
     <string name="candidatos">Candidatos</string>
     <string name="escrutinio">Escrutinio</string>
-    <string name="padron">Padron</string>
+    <string name="padron">Padrón</string>
     <string name="votar">Votar</string>
+
+    <string name="not_avaliable">Aún no disponible</string>
 
 </resources>

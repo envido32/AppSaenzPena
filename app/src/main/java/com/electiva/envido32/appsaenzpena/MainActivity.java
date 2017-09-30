@@ -6,8 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -38,7 +40,39 @@ public class MainActivity extends AppCompatActivity {
         Bundle bundle = this.getIntent().getExtras();
 
         //Construimos el mensaje a mostrar
-        //textSaludos.setText("Bienvenido:  " + bundle.getString("usrMail"));
+        textSaludos.setText("Bienvenido:  " + bundle.getString("usrMail"));
+
+        btnCandidatos.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                //Creamos el Intent
+                Intent intent =
+                        new Intent(MainActivity.this, CandidatosActivity.class);
+
+                //Iniciamos la nueva actividad
+                startActivity(intent);
+            }
+        });
+
+        btnPadron.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), R.string.not_avaliable, Toast.LENGTH_LONG).show();
+            }
+        });
+
+        btnVotar.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                Toast.makeText(getApplicationContext(), R.string.not_avaliable, Toast.LENGTH_LONG).show();
+            }
+        });
+
+        btnEscrutineo.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                // To Do: Agregar verificacion de usuarios con base SQL lite
+                Toast.makeText(getApplicationContext(), R.string.not_avaliable, Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     // Agregar botones al Toolbar
