@@ -53,12 +53,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //TODO: Base de datos del padron
         btnPadron.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), R.string.not_avaliable, Toast.LENGTH_LONG).show();
             }
         });
 
+        //TODO: Activity para votar
         btnVotar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
@@ -66,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //TODO: Activity de recuento
         btnEscrutineo.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 

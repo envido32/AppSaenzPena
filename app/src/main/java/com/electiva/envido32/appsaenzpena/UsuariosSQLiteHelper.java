@@ -2,15 +2,15 @@ package com.electiva.envido32.appsaenzpena;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
+import android.database.sqlite.SQLiteOpenHelper;
 
-public class CandidatosSQLiteHelper extends SQLiteOpenHelper {
+public class UsuariosSQLiteHelper extends SQLiteOpenHelper {
 
     //Sentencia SQL para crear la tabla de Usuarios
-    String sqlCreate = "CREATE TABLE Candidatos (codigo INTEGER, nombre TEXT)";
+    String sqlCreate = "CREATE TABLE Usuarios (codigo INTEGER, nombre TEXT, pass TEXT)";
 
-    public CandidatosSQLiteHelper(Context contexto, String nombre,
+    public UsuariosSQLiteHelper(Context contexto, String nombre,
                                 CursorFactory factory, int version) {
         super(contexto, nombre, factory, version);
     }
@@ -29,7 +29,7 @@ public class CandidatosSQLiteHelper extends SQLiteOpenHelper {
         //      a la nueva, por lo que este método debería ser más elaborado.
 
         //Se elimina la versión anterior de la tabla
-        db.execSQL("DROP TABLE IF EXISTS Candidatos");
+        db.execSQL("DROP TABLE IF EXISTS Usuarios");
 
         //Se crea la nueva versión de la tabla
         db.execSQL(sqlCreate);

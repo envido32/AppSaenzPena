@@ -1,6 +1,8 @@
 package com.electiva.envido32.appsaenzpena;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +15,7 @@ public class LoginActivity extends AppCompatActivity {
     public EditText usrMail;
     public EditText usrPass;
     public Button btnLogin;
+    public int usrType = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,16 +29,52 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                // To Do: Agregar verificacion de usuarios con base SQL lite
-                if(usrMail.getText().toString().equals("usr")
-                        && usrPass.getText().toString().equals("1234")) {
+                // Verificar Login
+
+                //Abrimos la base de datos 'Usuarios' en modo lectura
+                UsuariosSQLiteHelper dbUsuariosHelper =
+                        new UsuariosSQLiteHelper(getBaseContext(), "DB_Usuarios", null, 1);
+
+                SQLiteDatabase dbUsuarios = dbUsuariosHelper.getReadableDatabase();
+
+                //Si abrio correctamente la base de datos
+                if(dbUsuarios != null)
+                {
+                    String[] campos = new String[] {"codigo", "nombre", "pass"};
+                    String[] args = new String[] {"usu1"};
+
+                    Cursor dbUsuariosCursor = dbUsuarios.query("Usuarios", campos, "usuario=?", args, null, null, null);
+                    if (dbUsuariosCursor.moveToFirst()) {
+                        //Recorremos el cursor hasta que no haya más registros
+                        do {
+                            int codigo = dbUsuariosCursor.getInt(0);
+                            String nombre = dbUsuariosCursor.getString(1);
+                            String pass = dbUsuariosCursor.getString(2);
+
+                            //TODO: Encriptar password
+
+                            //Verifican login
+                            if(usrMail.getText().toString().equals(nombre)
+                                    && usrPass.getText().toString().equals(pass)) {
+                                usrType = codigo;  // 0 = invalido, 1 = admin, 2 = fiscal, 3 = votante
+                            }
+                        } while(dbUsuariosCursor.moveToNext());
+                    }
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(), R.string.db_error, Toast.LENGTH_LONG).show();
+                }
+
+
+                if(usrType > 0) {
                     //Creamos el Intent
                     Intent intent =
                             new Intent(getBaseContext(), MainActivity.class);
 
                     //Creamos la información a pasar entre actividades
                     Bundle bundleInfo = new Bundle();
-                    bundleInfo.putString("usrMail", usrMail.getText().toString());
+                    bundleInfo.putInt("usrType", usrType);
 
                     //Añadimos la información al intent
                     intent.putExtras(bundleInfo);

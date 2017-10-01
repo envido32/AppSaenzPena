@@ -1,7 +1,9 @@
 package com.electiva.envido32.appsaenzpena;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
@@ -23,6 +25,28 @@ public class SplashActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         setContentView(R.layout.activity_splash);
+
+
+        //Creacion de la base de datos de Usuarios
+        UsuariosSQLiteHelper dbUsuariosHelper = new UsuariosSQLiteHelper(this, "DB_Usuarios", null, 1);
+
+        SQLiteDatabase dbUsuarios = dbUsuariosHelper.getWritableDatabase();
+
+        int codigo = 1;
+        String nombre = "admin";
+        String pass = "admin";
+        //TODO: Encriptar password
+
+        ContentValues nuevoRegistro = new ContentValues();
+        nuevoRegistro.put("codigo", codigo);
+        nuevoRegistro.put("nombre", nombre);
+        nuevoRegistro.put("pass", pass);
+
+        //Insertamos el registro en la base de datoss
+        dbUsuarios.insert("DB_Usuarios", null, nuevoRegistro);
+
+        //Cerramos la base de datos_candidatos
+        dbUsuarios.close();
 
         TimerTask task = new TimerTask()
         {

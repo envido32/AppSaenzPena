@@ -1,6 +1,7 @@
 package com.electiva.envido32.appsaenzpena;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,7 +18,7 @@ public class CandidatosActivity extends AppCompatActivity {
     public ListView listCandidatos;
     public Toolbar myToolbar;
     
-    public String[] datos =     
+    public String[] datos_candidatos =
             new String[]{"Perro","Gato","Chancho","Vaca","Mamut"};
     
     @Override
@@ -31,34 +32,52 @@ public class CandidatosActivity extends AppCompatActivity {
 
         listCandidatos = (ListView) findViewById(R.id.ListViewCandidatos);
 
-        //Abrimos la base de datos 'Candidatos' en modo escritura
-        CandidatosSQLiteHelper candidatosdb =
+        //Abrimos la base de datos_candidatos 'Candidatos' en modo escritura
+        CandidatosSQLiteHelper dbCandidatosHelper =
                 new CandidatosSQLiteHelper(this, "DB_Candidatos", null, 1);
 
-        SQLiteDatabase db = candidatosdb.getWritableDatabase();
+        SQLiteDatabase dbCandidatos = dbCandidatosHelper.getWritableDatabase();
 
-        //Si abrio correctamente la base de datos
-        if(db != null)
+        //Si abrio correctamente la base de datos_candidatos
+        if(dbCandidatos != null)
         {
             //Insertamos 5 usuarios de ejemplo
             for(int i=1; i<=5; i++)
             {
-                //Generamos los datos
+                //Generamos los datos_candidatos
                 int codigo = i;
                 String nombre = "Candidato" + i;
 
-                //Insertamos los datos en la tabla Usuarios
-                db.execSQL("INSERT INTO Candidatos (codigo, nombre) " +
+                //Insertamos los datos_candidatos en la tabla Usuarios
+                dbCandidatos.execSQL("INSERT INTO Candidatos (codigo, nombre) " +
                         "VALUES (" + codigo + ", '" + nombre +"')");
             }
 
-            //Cerramos la base de datos
-            db.close();
+        }
+
+        String[] campos = new String[] {"codigo", "nombre"};
+        String[] args = new String[] {"usu1"};
+
+        Cursor dbCandidatosCursor = dbCandidatos.query("Candidatos", campos, "nombre=?", args, null, null, null);
+
+
+        //Nos aseguramos de que existe al menos un registro
+        if (dbCandidatosCursor.moveToFirst()) {
+            //Recorremos el cursor hasta que no haya más registros
+            int i = 0;
+            do
+            {
+                    String codigo = dbCandidatosCursor.getString(0);
+                    String nombre = dbCandidatosCursor.getString(1);
+                    datos_candidatos[i] = nombre;
+                i++;
+            } while (dbCandidatosCursor.moveToNext());
+            dbCandidatos.close();
         }
 
         ArrayAdapter<String> adaptador =
                 new ArrayAdapter<String>(this,
-                        android.R.layout.simple_list_item_1, datos);
+                        android.R.layout.simple_list_item_1, datos_candidatos);
 
         adaptador.setDropDownViewResource(
                 android.R.layout.simple_list_item_1);
@@ -81,6 +100,9 @@ public class CandidatosActivity extends AppCompatActivity {
                 }
             }
         );
+
+        //Cerramos la base de datos_candidatos
+        dbCandidatos.close();
     }
 
     // Agregar botones al Toolbar
@@ -104,7 +126,7 @@ public class CandidatosActivity extends AppCompatActivity {
                 return true;
 
             case R.id.action_add:
-                //To Do: agregar candidato
+                //TODO: agregar candidato
                 Toast.makeText(getApplicationContext(), R.string.not_avaliable, Toast.LENGTH_LONG).show();
                 return true;
 
