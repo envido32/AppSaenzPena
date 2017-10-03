@@ -42,6 +42,9 @@ public class MainActivity extends AppCompatActivity {
         //Construimos el mensaje a mostrar
         textSaludos.setText("Bienvenido:  " + bundle.getString("usrMail"));
 
+        // DEBUG
+        Toast.makeText(getApplicationContext(), "DEBUG: UsrType = " + bundle.getInt("usrType"), Toast.LENGTH_LONG).show();
+
         btnCandidatos.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //Creamos el Intent
@@ -72,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
         btnEscrutineo.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                // To Do: Agregar verificacion de usuarios con base SQL lite
                 Toast.makeText(getApplicationContext(), R.string.not_avaliable, Toast.LENGTH_LONG).show();
             }
         });

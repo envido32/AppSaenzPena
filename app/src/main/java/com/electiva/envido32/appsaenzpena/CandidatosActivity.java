@@ -1,16 +1,18 @@
 package com.electiva.envido32.appsaenzpena;
 
+import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.AdapterView;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class CandidatosActivity extends AppCompatActivity {
@@ -18,8 +20,14 @@ public class CandidatosActivity extends AppCompatActivity {
     public ListView listCandidatos;
     public Toolbar myToolbar;
     
-    public String[] datos_candidatos =
-            new String[]{"Perro","Gato","Chancho","Vaca","Mamut"};
+    public CandidatoClass[] datos_candidatos =
+            new CandidatoClass[]{
+                    new CandidatoClass(1, "Ilucionistas", "Magoo"),
+                    new CandidatoClass(2, "Animales", "Etelefante"),
+                    new CandidatoClass(3, "Aventureros", "Indiana"),
+                    new CandidatoClass(4, "Rapido y Facil", "Whynot"),
+                    new CandidatoClass(5, "Realismo Magico", "Zerocool"),
+            };
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +38,13 @@ public class CandidatosActivity extends AppCompatActivity {
         myToolbar = (Toolbar) findViewById(R.id.appbar);
         setSupportActionBar(myToolbar);
 
-        listCandidatos = (ListView) findViewById(R.id.ListViewCandidatos);
+        AdaptadorCandidatos adaptador =
+                new AdaptadorCandidatos(this, datos_candidatos);
 
+        listCandidatos = (ListView)findViewById(R.id.ListViewCandidatos);
+        listCandidatos.setAdapter(adaptador);
+
+        /* TODO: Arreglar base de datos
         //Abrimos la base de datos_candidatos 'Candidatos' en modo escritura
         CandidatosSQLiteHelper dbCandidatosHelper =
                 new CandidatosSQLiteHelper(this, "DB_Candidatos", null, 1);
@@ -75,34 +88,9 @@ public class CandidatosActivity extends AppCompatActivity {
             dbCandidatos.close();
         }
 
-        ArrayAdapter<String> adaptador =
-                new ArrayAdapter<String>(this,
-                        android.R.layout.simple_list_item_1, datos_candidatos);
-
-        adaptador.setDropDownViewResource(
-                android.R.layout.simple_list_item_1);
-
-        listCandidatos.setAdapter(adaptador);
-
-        listCandidatos.setOnItemSelectedListener(
-            new AdapterView.OnItemSelectedListener() {
-                public void onItemSelected(AdapterView<?> parent,
-                                           android.view.View v, int position, long id) {
-                    Toast.makeText(getApplicationContext(),
-                           "Candidato: " + parent.getItemAtPosition(position),
-                            Toast.LENGTH_LONG).show();
-                }
-
-                public void onNothingSelected(AdapterView<?> parent) {
-                    Toast.makeText(getApplicationContext(),
-                            "No hay animal favorito. Soy feo :(",
-                            Toast.LENGTH_LONG).show();
-                }
-            }
-        );
-
         //Cerramos la base de datos_candidatos
         dbCandidatos.close();
+        */
     }
 
     // Agregar botones al Toolbar
@@ -133,6 +121,27 @@ public class CandidatosActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
 
+        }
+    }
+
+    // TODO: Migrar a CandidatoClass.java
+    class AdaptadorCandidatos extends ArrayAdapter<CandidatoClass> {
+
+        public AdaptadorCandidatos(Context context, CandidatoClass[] datos_candidatos) {
+            super(context, R.layout.listitem_candidato, datos_candidatos);
+        }
+
+        public View getView(int position, View convertView, ViewGroup parent) {
+            LayoutInflater inflater = LayoutInflater.from(getContext());
+            View item = inflater.inflate(R.layout.listitem_candidato, null);
+
+            TextView lblNombre = (TextView)item.findViewById(R.id.LblNombre);
+            lblNombre.setText(datos_candidatos[position].getNombre());
+
+            TextView lblPartido = (TextView)item.findViewById(R.id.LblPartido);
+            lblPartido.setText(datos_candidatos[position].getPartido());
+
+            return(item);
         }
     }
 }

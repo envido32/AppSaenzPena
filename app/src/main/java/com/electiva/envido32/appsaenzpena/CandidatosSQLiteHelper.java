@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 public class CandidatosSQLiteHelper extends SQLiteOpenHelper {
 
     //Sentencia SQL para crear la tabla de Usuarios
-    String sqlCreate = "CREATE TABLE Candidatos (codigo INTEGER, nombre TEXT)";
+    String sqlCreate = "CREATE TABLE Candidatos (lista INTEGER, partido TEXT, nombre TEXT)";
 
     public CandidatosSQLiteHelper(Context contexto, String nombre,
                                 CursorFactory factory, int version) {
