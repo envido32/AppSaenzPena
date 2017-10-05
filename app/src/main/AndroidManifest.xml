@@ -18,7 +18,8 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".CandidatosActivity"></activity>
+        <activity android:name=".CandidatosActivity" />
+        <activity android:name=".CandidatoInfoActivity"></activity>
     </application>
 
 </manifest>

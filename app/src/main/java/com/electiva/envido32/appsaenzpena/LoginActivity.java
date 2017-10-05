@@ -49,16 +49,18 @@ public class LoginActivity extends AppCompatActivity {
                     Cursor dbUsuariosCursor = dbUsuarios.query("Usuarios", campos, "nombre=?", args, null, null, null);
                     //Nos aseguramos de que existe al menos un registro
                     if (dbUsuariosCursor.moveToFirst()) {
+                        do {
 
                             int codigo = dbUsuariosCursor.getInt(0);
-                                String nombre = dbUsuariosCursor.getString(1);
-                                String pass = dbUsuariosCursor.getString(2);
+                            String nombre = dbUsuariosCursor.getString(1);
+                            String pass = dbUsuariosCursor.getString(2);
 
-                                //TODO: Encriptar password
-                                //Verifican login
-                                if (usrPass.getText().toString().equals(pass)) {
-                                    usrType = codigo;  // 0 = invalido, 1 = admin, 2 = fiscal, 3 = votante
-                                }
+                            //TODO: Encriptar password
+                            //Verifican login
+                            if (usrPass.getText().toString().equals(pass)) {
+                                usrType = codigo;  // 0 = invalido, 1 = admin, 2 = fiscal, 3 = votante
+                            }
+                        }while(dbUsuariosCursor.moveToNext());
                     }
                 }
                 else
@@ -67,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
 
-                //usrType = 1; // DEBUG: fuerzo admin
+                usrType = 1; // DEBUG: fuerzo admin
                 if(usrType > 0) {
                     //Creamos el Intent
                     Intent intent =

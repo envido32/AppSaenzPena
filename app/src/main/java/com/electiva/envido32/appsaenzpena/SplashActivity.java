@@ -6,6 +6,7 @@ import android.content.pm.ActivityInfo;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 
 import java.util.Timer;
@@ -26,52 +27,122 @@ public class SplashActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_splash);
 
-
         //Creacion de la base de datos de Usuarios
-        UsuariosSQLiteHelper dbUsuariosHelper =
-                new UsuariosSQLiteHelper(this, "DB_Usuarios", null, 1);
+        do {
+            UsuariosSQLiteHelper dbUsuariosHelper =
+                    new UsuariosSQLiteHelper(this, "DB_Usuarios", null, 1);
 
-        SQLiteDatabase dbUsuarios = dbUsuariosHelper.getWritableDatabase();
+            SQLiteDatabase dbUsuarios = dbUsuariosHelper.getWritableDatabase();
 
-        //TODO: Encriptar password
-        int codigo = 1;
-        String nombre = "admin";
-        String pass = "admin";
+            //TODO: Encriptar password
+            int codigo = 1;
+            String nombre = "admin";
+            String pass = "admin";
 
-        ContentValues nuevoRegistro = new ContentValues();
-        nuevoRegistro.put("codigo", codigo);
-        nuevoRegistro.put("nombre", nombre);
-        nuevoRegistro.put("pass", pass);
+            ContentValues nuevoRegistro = new ContentValues();
+            nuevoRegistro.put("codigo", codigo);
+            nuevoRegistro.put("nombre", nombre);
+            nuevoRegistro.put("pass", pass);
 
-        //Insertamos el registro en la base de datoss
-        dbUsuarios.insert("Usuarios", null, nuevoRegistro);
+            //Insertamos el registro en la base de datoss
+            dbUsuarios.insert("Usuarios", null, nuevoRegistro);
 
-        codigo = 2;
-        nombre = "fiscal";
-        pass = "fiscal";
+            codigo = 2;
+            nombre = "fiscal";
+            pass = "fiscal";
 
-        nuevoRegistro = new ContentValues();
-        nuevoRegistro.put("codigo", codigo);
-        nuevoRegistro.put("nombre", nombre);
-        nuevoRegistro.put("pass", pass);
+            nuevoRegistro = new ContentValues();
+            nuevoRegistro.put("codigo", codigo);
+            nuevoRegistro.put("nombre", nombre);
+            nuevoRegistro.put("pass", pass);
 
-        //Insertamos el registro en la base de datoss
-        dbUsuarios.insert("Usuarios", null, nuevoRegistro);
+            //Insertamos el registro en la base de datoss
+            dbUsuarios.insert("Usuarios", null, nuevoRegistro);
 
-        codigo = 3;
-        nombre = "votante";
-        pass = "votante";
+            codigo = 3;
+            nombre = "votante";
+            pass = "";
 
-        nuevoRegistro = new ContentValues();
-        nuevoRegistro.put("codigo", codigo);
-        nuevoRegistro.put("nombre", nombre);
-        nuevoRegistro.put("pass", pass);
+            nuevoRegistro = new ContentValues();
+            nuevoRegistro.put("codigo", codigo);
+            nuevoRegistro.put("nombre", nombre);
+            nuevoRegistro.put("pass", pass);
 
-        //Insertamos el registro en la base de datoss
-        dbUsuarios.insert("Usuarios", null, nuevoRegistro);
+            //Insertamos el registro en la base de datoss
+            dbUsuarios.insert("Usuarios", null, nuevoRegistro);
 
-        //Cerramos la base de datos_candidatos
-        dbUsuarios.close();
+            //Cerramos la base de datos_candidatos
+            dbUsuarios.close();
+            Log.i("SQL", "Base de datos creada: Usuarios");
+        } while(false);
+
+        //Creacion de la base de datos de Candidatos
+        do {
+            CandidatosSQLiteHelper dbCandidatosHelper =
+                    new CandidatosSQLiteHelper(this, "DB_Candidatos", null, 1);
+
+            SQLiteDatabase dbCandidatos = dbCandidatosHelper.getWritableDatabase();
+
+            int lista = 1;
+            String partido = "Ilucionistas";
+            String nombre = "Magoo";
+            ContentValues nuevoRegistro = new ContentValues();
+
+            nuevoRegistro.put("lista", lista);
+            nuevoRegistro.put("partido", partido);
+            nuevoRegistro.put("nombre", nombre);
+
+            //Insertamos el registro en la base de datoss
+            dbCandidatos.insert("Candidatos", null, nuevoRegistro);
+
+            lista++;
+            partido = "Animales";
+            nombre = "Etelefante";
+
+            nuevoRegistro.put("lista", lista);
+            nuevoRegistro.put("partido", partido);
+            nuevoRegistro.put("nombre", nombre);
+
+            //Insertamos el registro en la base de datoss
+            dbCandidatos.insert("Candidatos", null, nuevoRegistro);
+
+            lista++;
+            partido = "Aventureros";
+            nombre = "Indiana";
+
+            nuevoRegistro.put("lista", lista);
+            nuevoRegistro.put("partido", partido);
+            nuevoRegistro.put("nombre", nombre);
+
+            //Insertamos el registro en la base de datoss
+            dbCandidatos.insert("Candidatos", null, nuevoRegistro);
+
+            lista++;
+            partido = "Rapido y Facil";
+            nombre = "Whynot";
+
+            nuevoRegistro.put("lista", lista);
+            nuevoRegistro.put("partido", partido);
+            nuevoRegistro.put("nombre", nombre);
+
+            //Insertamos el registro en la base de datoss
+            dbCandidatos.insert("Candidatos", null, nuevoRegistro);
+
+            lista++;
+            partido = "Realismo Magico";
+            nombre = "Zerocool";
+
+            nuevoRegistro.put("lista", lista);
+            nuevoRegistro.put("partido", partido);
+            nuevoRegistro.put("nombre", nombre);
+
+            //Insertamos el registro en la base de datoss
+            dbCandidatos.insert("Candidatos", null, nuevoRegistro);
+
+            //Cerramos la base de datos_candidatos
+            dbCandidatos.close();
+            Log.i("SQL", "Base de datos creada: " + lista + "Candidatos");
+        } while (false);
 
         TimerTask task = new TimerTask()
         {

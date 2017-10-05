@@ -2,6 +2,8 @@ package com.electiva.envido32.appsaenzpena;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -20,15 +22,8 @@ public class CandidatosActivity extends AppCompatActivity {
 
     public ListView listCandidatos;
     public Toolbar myToolbar;
-    
     public CandidatoClass[] datos_candidatos =
-            new CandidatoClass[]{
-                    new CandidatoClass(1, "Ilucionistas", "Magoo"),
-                    new CandidatoClass(2, "Animales", "Etelefante"),
-                    new CandidatoClass(3, "Aventureros", "Indiana"),
-                    new CandidatoClass(4, "Rapido y Facil", "Whynot"),
-                    new CandidatoClass(5, "Realismo Magico", "Zerocool"),
-            };
+            new CandidatoClass[5];
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +34,44 @@ public class CandidatosActivity extends AppCompatActivity {
         myToolbar = (Toolbar) findViewById(R.id.appbar);
         setSupportActionBar(myToolbar);
 
+        //Abrimos la base de datos 'Candidatos' en modo r/w
+        CandidatosSQLiteHelper dbCandidatosHelper =
+                new CandidatosSQLiteHelper(getBaseContext(), "DB_Candidatos", null, 1);
+
+        SQLiteDatabase dbCandidatos = dbCandidatosHelper.getWritableDatabase();
+
+        //Si abrio correctamente la base de datos la cargo en el array
+        if(dbCandidatos != null){
+            String[] campos = new String[] {"lista", "partido", "nombre"};
+
+            Cursor dbCandidatosCursor = dbCandidatos.query("Candidatos", campos, null, null, null, null, null);
+            //dbCandidatosCursor = null; // DEBUG
+            //Nos aseguramos de que existe al menos un registro
+            if (dbCandidatosCursor.moveToFirst()) {
+                do {
+
+                    int lista = dbCandidatosCursor.getInt(0);
+                    String partido = dbCandidatosCursor.getString(1);
+                    String nombre = dbCandidatosCursor.getString(2);
+
+                    CandidatoClass addCandidatto =
+                            new CandidatoClass(lista, partido, nombre);
+                    //TODO: arreglar el inflado
+                    datos_candidatos[lista-1] = addCandidatto;
+
+                }while(dbCandidatosCursor.moveToNext());
+            }
+        }
+        else
+        {
+            Toast.makeText(getApplicationContext(), R.string.db_error, Toast.LENGTH_LONG).show();
+        }
+
         AdaptadorCandidatos adaptador =
                 new AdaptadorCandidatos(this, datos_candidatos);
 
         listCandidatos = (ListView)findViewById(R.id.ListViewCandidatos);
         listCandidatos.setAdapter(adaptador);
-
 
         listCandidatos.setOnItemLongClickListener(
                 new AdapterView.OnItemLongClickListener() {
@@ -70,59 +97,11 @@ public class CandidatosActivity extends AppCompatActivity {
                                 ((CandidatoClass)parent.getItemAtPosition(position)).getPartido();
 
                         Toast.makeText(getApplicationContext(),
-                                "Click! " + opcionSeleccionada,
+                                "Click! " +
+                                        "" + opcionSeleccionada,
                                 Toast.LENGTH_LONG).show();
                     }
                 });
-
-
-        /* TODO: Arreglar base de datos
-        //Abrimos la base de datos_candidatos 'Candidatos' en modo escritura
-        CandidatosSQLiteHelper dbCandidatosHelper =
-                new CandidatosSQLiteHelper(this, "DB_Candidatos", null, 1);
-
-        SQLiteDatabase dbCandidatos = dbCandidatosHelper.getWritableDatabase();
-
-        //Si abrio correctamente la base de datos_candidatos
-        if(dbCandidatos != null)
-        {
-            //Insertamos 5 usuarios de ejemplo
-            for(int i=1; i<=5; i++)
-            {
-                //Generamos los datos_candidatos
-                int codigo = i;
-                String nombre = "Candidato" + i;
-
-                //Insertamos los datos_candidatos en la tabla Usuarios
-                dbCandidatos.execSQL("INSERT INTO Candidatos (codigo, nombre) " +
-                        "VALUES (" + codigo + ", '" + nombre +"')");
-            }
-
-        }
-
-        String[] campos = new String[] {"codigo", "nombre"};
-        String[] args = new String[] {"usu1"};
-
-        Cursor dbCandidatosCursor = dbCandidatos.query("Candidatos", campos, "nombre=?", args, null, null, null);
-
-
-        //Nos aseguramos de que existe al menos un registro
-        if (dbCandidatosCursor.moveToFirst()) {
-            //Recorremos el cursor hasta que no haya más registros
-            int i = 0;
-            do
-            {
-                    String codigo = dbCandidatosCursor.getString(0);
-                    String nombre = dbCandidatosCursor.getString(1);
-                    datos_candidatos[i] = nombre;
-                i++;
-            } while (dbCandidatosCursor.moveToNext());
-            dbCandidatos.close();
-        }
-
-        //Cerramos la base de datos_candidatos
-        dbCandidatos.close();
-        */
     }
 
 
