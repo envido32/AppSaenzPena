@@ -13,7 +13,7 @@ import java.util.TimerTask;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private static final long SPLASH_SCREEN_DELAY = 3000;
+    private static final long SPLASH_SCREEN_DELAY = 500;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,14 +28,15 @@ public class SplashActivity extends AppCompatActivity {
 
 
         //Creacion de la base de datos de Usuarios
-        UsuariosSQLiteHelper dbUsuariosHelper = new UsuariosSQLiteHelper(this, "DB_Usuarios", null, 1);
+        UsuariosSQLiteHelper dbUsuariosHelper =
+                new UsuariosSQLiteHelper(this, "DB_Usuarios", null, 1);
 
         SQLiteDatabase dbUsuarios = dbUsuariosHelper.getWritableDatabase();
 
+        //TODO: Encriptar password
         int codigo = 1;
         String nombre = "admin";
         String pass = "admin";
-        //TODO: Encriptar password
 
         ContentValues nuevoRegistro = new ContentValues();
         nuevoRegistro.put("codigo", codigo);
@@ -43,7 +44,31 @@ public class SplashActivity extends AppCompatActivity {
         nuevoRegistro.put("pass", pass);
 
         //Insertamos el registro en la base de datoss
-        dbUsuarios.insert("DB_Usuarios", null, nuevoRegistro);
+        dbUsuarios.insert("Usuarios", null, nuevoRegistro);
+
+        codigo = 2;
+        nombre = "fiscal";
+        pass = "fiscal";
+
+        nuevoRegistro = new ContentValues();
+        nuevoRegistro.put("codigo", codigo);
+        nuevoRegistro.put("nombre", nombre);
+        nuevoRegistro.put("pass", pass);
+
+        //Insertamos el registro en la base de datoss
+        dbUsuarios.insert("Usuarios", null, nuevoRegistro);
+
+        codigo = 3;
+        nombre = "votante";
+        pass = "votante";
+
+        nuevoRegistro = new ContentValues();
+        nuevoRegistro.put("codigo", codigo);
+        nuevoRegistro.put("nombre", nombre);
+        nuevoRegistro.put("pass", pass);
+
+        //Insertamos el registro en la base de datoss
+        dbUsuarios.insert("Usuarios", null, nuevoRegistro);
 
         //Cerramos la base de datos_candidatos
         dbUsuarios.close();

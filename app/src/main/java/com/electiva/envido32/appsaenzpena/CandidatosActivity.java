@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -43,6 +44,37 @@ public class CandidatosActivity extends AppCompatActivity {
 
         listCandidatos = (ListView)findViewById(R.id.ListViewCandidatos);
         listCandidatos.setAdapter(adaptador);
+
+
+        listCandidatos.setOnItemLongClickListener(
+                new AdapterView.OnItemLongClickListener() {
+                    public boolean onItemLongClick(AdapterView<?> parent,
+                                                android.view.View v, int position, long id) {
+
+                        String opcionSeleccionada =
+                                ((CandidatoClass)parent.getItemAtPosition(position)).getPartido();
+
+                        Toast.makeText(getApplicationContext(),
+                                "Long! " + opcionSeleccionada,
+                                Toast.LENGTH_LONG).show();
+                        return true;
+                    }
+                });
+
+        listCandidatos.setOnItemClickListener(
+                new AdapterView.OnItemClickListener() {
+                    public void onItemClick(AdapterView<?> parent,
+                                               android.view.View v, int position, long id) {
+
+                        String opcionSeleccionada =
+                                ((CandidatoClass)parent.getItemAtPosition(position)).getPartido();
+
+                        Toast.makeText(getApplicationContext(),
+                                "Click! " + opcionSeleccionada,
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
+
 
         /* TODO: Arreglar base de datos
         //Abrimos la base de datos_candidatos 'Candidatos' en modo escritura
@@ -93,6 +125,8 @@ public class CandidatosActivity extends AppCompatActivity {
         */
     }
 
+
+
     // Agregar botones al Toolbar
     @Override
     public boolean onCreateOptionsMenu (Menu menu) {
@@ -139,7 +173,7 @@ public class CandidatosActivity extends AppCompatActivity {
             lblNombre.setText(datos_candidatos[position].getNombre());
 
             TextView lblPartido = (TextView)item.findViewById(R.id.LblPartido);
-            lblPartido.setText(datos_candidatos[position].getPartido());
+            lblPartido.setText("Lista " + datos_candidatos[position].getLista() + " - "+ datos_candidatos[position].getPartido());
 
             return(item);
         }

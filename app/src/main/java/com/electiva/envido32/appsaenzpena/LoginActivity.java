@@ -15,8 +15,7 @@ public class LoginActivity extends AppCompatActivity {
     public EditText usrMail;
     public EditText usrPass;
     public Button btnLogin;
-    public int usrType = 0;
-    public SQLiteDatabase dbUsuarios;
+    public int usrType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,41 +26,39 @@ public class LoginActivity extends AppCompatActivity {
         usrMail=(EditText) findViewById(R.id.editTextMail);
         usrPass=(EditText) findViewById(R.id.editTextPass);
 
-        //Abrimos la base de datos 'Usuarios' en modo lectura
-        UsuariosSQLiteHelper dbUsuariosHelper =
-                new UsuariosSQLiteHelper(this, "DB_Usuarios", null, 1);
-
-        dbUsuarios = dbUsuariosHelper.getReadableDatabase();
-
-        dbUsuarios = null; //TODO: Arreglar la base de datos
+        //dbUsuarios = null;
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
                 // Verificar Login
+                usrType = 0;
+
+                //Abrimos la base de datos 'Usuarios' en modo lectura
+                UsuariosSQLiteHelper dbUsuariosHelper =
+                        new UsuariosSQLiteHelper(getBaseContext(), "DB_Usuarios", null, 1);
+
+                SQLiteDatabase dbUsuarios = dbUsuariosHelper.getWritableDatabase();
 
                 //Si abrio correctamente la base de datos
                 if(dbUsuarios != null)
                 {
                     String[] campos = new String[] {"codigo", "nombre", "pass"};
-                    String[] args = new String[] {"usu1"};
+                    String[] args = new String[] {usrMail.getText().toString()};
 
-                    Cursor dbUsuariosCursor = dbUsuarios.query("Usuarios", campos, "usuario=?", args, null, null, null);
+                    Cursor dbUsuariosCursor = dbUsuarios.query("Usuarios", campos, "nombre=?", args, null, null, null);
+                    //Nos aseguramos de que existe al menos un registro
                     if (dbUsuariosCursor.moveToFirst()) {
-                        //Recorremos el cursor hasta que no haya más registros
-                        do {
+
                             int codigo = dbUsuariosCursor.getInt(0);
-                            String nombre = dbUsuariosCursor.getString(1);
-                            String pass = dbUsuariosCursor.getString(2);
+                                String nombre = dbUsuariosCursor.getString(1);
+                                String pass = dbUsuariosCursor.getString(2);
 
-                            //TODO: Encriptar password
-
-                            //Verifican login
-                            if(usrMail.getText().toString().equals(nombre)
-                                    && usrPass.getText().toString().equals(pass)) {
-                                usrType = codigo;  // 0 = invalido, 1 = admin, 2 = fiscal, 3 = votante
-                            }
-                        } while(dbUsuariosCursor.moveToNext());
+                                //TODO: Encriptar password
+                                //Verifican login
+                                if (usrPass.getText().toString().equals(pass)) {
+                                    usrType = codigo;  // 0 = invalido, 1 = admin, 2 = fiscal, 3 = votante
+                                }
                     }
                 }
                 else
@@ -70,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
 
-                usrType = 1; // DEBUG: fuerzo admin
+                //usrType = 1; // DEBUG: fuerzo admin
                 if(usrType > 0) {
                     //Creamos el Intent
                     Intent intent =

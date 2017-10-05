@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,7 +44,8 @@ public class MainActivity extends AppCompatActivity {
         textSaludos.setText("Bienvenido:  " + bundle.getString("usrMail"));
 
         // DEBUG
-        Toast.makeText(getApplicationContext(), "DEBUG: UsrType = " + bundle.getInt("usrType"), Toast.LENGTH_LONG).show();
+        Log.i("UsrType", "UsrType = " + bundle.getInt("usrType"));
+        //Toast.makeText(getApplicationContext(), "DEBUG: UsrType = " + bundle.getInt("usrType"), Toast.LENGTH_LONG).show();
 
         btnCandidatos.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -66,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
         //TODO: Activity para votar
         btnVotar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
                 Toast.makeText(getApplicationContext(), R.string.not_avaliable, Toast.LENGTH_LONG).show();
             }
         });
@@ -74,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
         //TODO: Activity de recuento
         btnEscrutineo.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
                 Toast.makeText(getApplicationContext(), R.string.not_avaliable, Toast.LENGTH_LONG).show();
             }
         });

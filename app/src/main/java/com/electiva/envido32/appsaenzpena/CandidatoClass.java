@@ -18,15 +18,15 @@ public class CandidatoClass {
         nombre = nom;
     }
 
-    public void editLista(int lis){
+    public void setLista(int lis){
         lista = lis;
     }
 
-    public void editPartido(String part){
+    public void setPartido(String part){
         partido = part;
     }
 
-    public void editNombre(String nom){
+    public void setNombre(String nom){
         nombre = nom;
     }
 
