@@ -34,19 +34,19 @@ public class LoginActivity extends AppCompatActivity {
                 // Verificar Login
                 usrType = 0;
 
-                //Abrimos la base de datos 'Usuarios' en modo lectura
-                UsuariosSQLiteHelper dbUsuariosHelper =
-                        new UsuariosSQLiteHelper(getBaseContext(), "DB_Usuarios", null, 1);
+                //Abrimos la base de datos en modo lectura
+                VotacionSQLiteHelper dbVotacionHelper =
+                        new VotacionSQLiteHelper(getBaseContext(), "DB_Votacion", null, 1);
 
-                SQLiteDatabase dbUsuarios = dbUsuariosHelper.getWritableDatabase();
+                SQLiteDatabase dbVotacion = dbVotacionHelper.getWritableDatabase();
 
                 //Si abrio correctamente la base de datos
-                if(dbUsuarios != null)
+                if(dbVotacion != null)
                 {
                     String[] campos = new String[] {"codigo", "nombre", "pass"};
                     String[] args = new String[] {usrMail.getText().toString()};
 
-                    Cursor dbUsuariosCursor = dbUsuarios.query("Usuarios", campos, "nombre=?", args, null, null, null);
+                    Cursor dbUsuariosCursor = dbVotacion.query("Usuarios", campos, "nombre=?", args, null, null, null);
                     //Nos aseguramos de que existe al menos un registro
                     if (dbUsuariosCursor.moveToFirst()) {
                         do {

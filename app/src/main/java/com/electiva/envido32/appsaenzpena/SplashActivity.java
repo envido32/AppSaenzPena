@@ -27,12 +27,13 @@ public class SplashActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_splash);
 
-        //Creacion de la base de datos de Usuarios
-        do {
-            UsuariosSQLiteHelper dbUsuariosHelper =
-                    new UsuariosSQLiteHelper(this, "DB_Usuarios", null, 1);
+        //Creacion de la base de datos
 
-            SQLiteDatabase dbUsuarios = dbUsuariosHelper.getWritableDatabase();
+        VotacionSQLiteHelper dbVotacionHelper =
+                new VotacionSQLiteHelper(this, "DB_Votacion", null, 1);
+
+        SQLiteDatabase dbVotacion = dbVotacionHelper.getWritableDatabase();
+        do {
 
             //TODO: Encriptar password
             int codigo = 1;
@@ -45,7 +46,7 @@ public class SplashActivity extends AppCompatActivity {
             nuevoRegistro.put("pass", pass);
 
             //Insertamos el registro en la base de datoss
-            dbUsuarios.insert("Usuarios", null, nuevoRegistro);
+            dbVotacion.insert("Usuarios", null, nuevoRegistro);
 
             codigo = 2;
             nombre = "fiscal";
@@ -57,7 +58,7 @@ public class SplashActivity extends AppCompatActivity {
             nuevoRegistro.put("pass", pass);
 
             //Insertamos el registro en la base de datoss
-            dbUsuarios.insert("Usuarios", null, nuevoRegistro);
+            dbVotacion.insert("Usuarios", null, nuevoRegistro);
 
             codigo = 3;
             nombre = "votante";
@@ -69,20 +70,13 @@ public class SplashActivity extends AppCompatActivity {
             nuevoRegistro.put("pass", pass);
 
             //Insertamos el registro en la base de datoss
-            dbUsuarios.insert("Usuarios", null, nuevoRegistro);
+            dbVotacion.insert("Usuarios", null, nuevoRegistro);
 
-            //Cerramos la base de datos_candidatos
-            dbUsuarios.close();
             Log.i("SQL", "Base de datos creada: Usuarios");
         } while(false);
 
         //Creacion de la base de datos de Candidatos
         do {
-            CandidatosSQLiteHelper dbCandidatosHelper =
-                    new CandidatosSQLiteHelper(this, "DB_Candidatos", null, 1);
-
-            SQLiteDatabase dbCandidatos = dbCandidatosHelper.getWritableDatabase();
-
             int lista = 1;
             String partido = "Ilucionistas";
             String nombre = "Magoo";
@@ -93,7 +87,7 @@ public class SplashActivity extends AppCompatActivity {
             nuevoRegistro.put("nombre", nombre);
 
             //Insertamos el registro en la base de datoss
-            dbCandidatos.insert("Candidatos", null, nuevoRegistro);
+            dbVotacion.insert("Candidatos", null, nuevoRegistro);
 
             lista++;
             partido = "Animales";
@@ -104,7 +98,7 @@ public class SplashActivity extends AppCompatActivity {
             nuevoRegistro.put("nombre", nombre);
 
             //Insertamos el registro en la base de datoss
-            dbCandidatos.insert("Candidatos", null, nuevoRegistro);
+            dbVotacion.insert("Candidatos", null, nuevoRegistro);
 
             lista++;
             partido = "Aventureros";
@@ -115,7 +109,7 @@ public class SplashActivity extends AppCompatActivity {
             nuevoRegistro.put("nombre", nombre);
 
             //Insertamos el registro en la base de datoss
-            dbCandidatos.insert("Candidatos", null, nuevoRegistro);
+            dbVotacion.insert("Candidatos", null, nuevoRegistro);
 
             lista++;
             partido = "Rapido y Facil";
@@ -126,7 +120,7 @@ public class SplashActivity extends AppCompatActivity {
             nuevoRegistro.put("nombre", nombre);
 
             //Insertamos el registro en la base de datoss
-            dbCandidatos.insert("Candidatos", null, nuevoRegistro);
+            dbVotacion.insert("Candidatos", null, nuevoRegistro);
 
             lista++;
             partido = "Realismo Magico";
@@ -137,12 +131,14 @@ public class SplashActivity extends AppCompatActivity {
             nuevoRegistro.put("nombre", nombre);
 
             //Insertamos el registro en la base de datoss
-            dbCandidatos.insert("Candidatos", null, nuevoRegistro);
+            dbVotacion.insert("Candidatos", null, nuevoRegistro);
 
-            //Cerramos la base de datos_candidatos
-            dbCandidatos.close();
             Log.i("SQL", "Base de datos creada: " + lista + "Candidatos");
         } while (false);
+
+
+        //Cerramos la base de datos_candidatos
+        dbVotacion.close();
 
         TimerTask task = new TimerTask()
         {

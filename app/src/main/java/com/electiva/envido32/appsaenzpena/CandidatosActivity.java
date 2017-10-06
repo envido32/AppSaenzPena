@@ -1,29 +1,24 @@
 package com.electiva.envido32.appsaenzpena;
 
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class CandidatosActivity extends AppCompatActivity {
 
     public ListView listCandidatos;
     public Toolbar myToolbar;
-    public CandidatoClass[] datos_candidatos =
-            new CandidatoClass[5];
+    public ArrayList<CandidatoClass> datos_candidatos = new ArrayList<>();
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,31 +30,30 @@ public class CandidatosActivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
 
         //Abrimos la base de datos 'Candidatos' en modo r/w
-        CandidatosSQLiteHelper dbCandidatosHelper =
-                new CandidatosSQLiteHelper(getBaseContext(), "DB_Candidatos", null, 1);
+        VotacionSQLiteHelper dbVotacionHelper =
+                new VotacionSQLiteHelper(getBaseContext(), "DB_Votacion", null, 1);
 
-        SQLiteDatabase dbCandidatos = dbCandidatosHelper.getWritableDatabase();
+        SQLiteDatabase dbVotacion = dbVotacionHelper.getWritableDatabase();
 
         //Si abrio correctamente la base de datos la cargo en el array
-        if(dbCandidatos != null){
+        if(dbVotacion != null){
             String[] campos = new String[] {"lista", "partido", "nombre"};
 
-            Cursor dbCandidatosCursor = dbCandidatos.query("Candidatos", campos, null, null, null, null, null);
-            //dbCandidatosCursor = null; // DEBUG
+            Cursor dbVotacionCursor = dbVotacion.query("Candidatos", campos, null, null, null, null, null);
+            //dbVotacionCursor = null; // DEBUG
             //Nos aseguramos de que existe al menos un registro
-            if (dbCandidatosCursor.moveToFirst()) {
+            if (dbVotacionCursor.moveToFirst()) {
                 do {
 
-                    int lista = dbCandidatosCursor.getInt(0);
-                    String partido = dbCandidatosCursor.getString(1);
-                    String nombre = dbCandidatosCursor.getString(2);
+                    int lista = dbVotacionCursor.getInt(0);
+                    String partido = dbVotacionCursor.getString(1);
+                    String nombre = dbVotacionCursor.getString(2);
 
-                    CandidatoClass addCandidatto =
+                    CandidatoClass addCandidato =
                             new CandidatoClass(lista, partido, nombre);
-                    //TODO: arreglar el inflado
-                    datos_candidatos[lista-1] = addCandidatto;
+                    datos_candidatos.add(addCandidato);
 
-                }while(dbCandidatosCursor.moveToNext());
+                }while(dbVotacionCursor.moveToNext());
             }
         }
         else
@@ -93,18 +87,26 @@ public class CandidatosActivity extends AppCompatActivity {
                     public void onItemClick(AdapterView<?> parent,
                                                android.view.View v, int position, long id) {
 
-                        String opcionSeleccionada =
-                                ((CandidatoClass)parent.getItemAtPosition(position)).getPartido();
+                        int opcionSeleccionada =
+                                ((CandidatoClass)parent.getItemAtPosition(position)).getLista();
 
-                        Toast.makeText(getApplicationContext(),
-                                "Click! " +
-                                        "" + opcionSeleccionada,
-                                Toast.LENGTH_LONG).show();
+                        //Creamos el Intent
+                        Intent intent =
+                                new Intent(getBaseContext(), CandidatoInfoActivity.class);
+
+                        //Creamos la información a pasar entre actividades
+                        Bundle bundleInfo = new Bundle();
+                        bundleInfo.putInt("lista", opcionSeleccionada);
+
+                        //Añadimos la información al intent
+                        intent.putExtras(bundleInfo);
+
+
+                        //Iniciamos la nueva actividad
+                        startActivity(intent);
                     }
                 });
     }
-
-
 
     // Agregar botones al Toolbar
     @Override
@@ -134,27 +136,6 @@ public class CandidatosActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
 
-        }
-    }
-
-    // TODO: Migrar a CandidatoClass.java
-    class AdaptadorCandidatos extends ArrayAdapter<CandidatoClass> {
-
-        public AdaptadorCandidatos(Context context, CandidatoClass[] datos_candidatos) {
-            super(context, R.layout.listitem_candidato, datos_candidatos);
-        }
-
-        public View getView(int position, View convertView, ViewGroup parent) {
-            LayoutInflater inflater = LayoutInflater.from(getContext());
-            View item = inflater.inflate(R.layout.listitem_candidato, null);
-
-            TextView lblNombre = (TextView)item.findViewById(R.id.LblNombre);
-            lblNombre.setText(datos_candidatos[position].getNombre());
-
-            TextView lblPartido = (TextView)item.findViewById(R.id.LblPartido);
-            lblPartido.setText("Lista " + datos_candidatos[position].getLista() + " - "+ datos_candidatos[position].getPartido());
-
-            return(item);
         }
     }
 }

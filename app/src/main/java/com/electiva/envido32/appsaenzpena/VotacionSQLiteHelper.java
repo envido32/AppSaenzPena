@@ -2,15 +2,16 @@ package com.electiva.envido32.appsaenzpena;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
+import android.database.sqlite.SQLiteOpenHelper;
 
-public class CandidatosSQLiteHelper extends SQLiteOpenHelper {
+public class VotacionSQLiteHelper extends SQLiteOpenHelper {
 
     //Sentencia SQL para crear la tabla de Usuarios
-    String sqlCreate = "CREATE TABLE Candidatos (lista INTEGER, partido TEXT, nombre TEXT)";
+    String[] sqlCreate = {"CREATE TABLE Candidatos (lista INTEGER, partido TEXT, nombre TEXT)",
+                        "CREATE TABLE Usuarios (codigo INTEGER, nombre TEXT, pass TEXT)" };
 
-    public CandidatosSQLiteHelper(Context contexto, String nombre,
+    public VotacionSQLiteHelper(Context contexto, String nombre,
                                 CursorFactory factory, int version) {
         super(contexto, nombre, factory, version);
     }
@@ -18,7 +19,9 @@ public class CandidatosSQLiteHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         //Se ejecuta la sentencia SQL de creación de la tabla
-        db.execSQL(sqlCreate);
+        for (int i=0; i<2; i++){
+            db.execSQL(sqlCreate[i]);
+        }
     }
 
     @Override
@@ -30,8 +33,11 @@ public class CandidatosSQLiteHelper extends SQLiteOpenHelper {
 
         //Se elimina la versión anterior de la tabla
         db.execSQL("DROP TABLE IF EXISTS Candidatos");
+        db.execSQL("DROP TABLE IF EXISTS Usuarios");
 
         //Se crea la nueva versión de la tabla
-        db.execSQL(sqlCreate);
+        for (int i=0; i<2; i++){
+            db.execSQL(sqlCreate[i]);
+        }
     }
 }
