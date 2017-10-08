@@ -3,33 +3,31 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:padding="3dp" >
 
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="3dp">
-
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/newPartido"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/partido" />
+            android:hint="@string/partido"
+            android:inputType="textCapSentences"
+            />
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/newCandidato"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/candidatos" />
+            android:hint="@string/candidato"
+            android:inputType="textCapWords"
+            />
 
-    </LinearLayout>
+        <EditText
+            android:id="@+id/newLista"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/nro_lista"
+            android:inputType="number"
+            />
 
 </LinearLayout>
