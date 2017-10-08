@@ -23,6 +23,10 @@
     <string name="partido">Partido</string>
     <string name="nro_lista">Lista</string>
 
+    <!-- New Usuario -->
+    <string name="codigo">Codigo</string>
+    <string name="pass_not_equal">Las contraceñas no concuerdan</string>
+    <string name="hint_pass2">Repeat Password</string>
     <string name="not_avaliable">Aún no disponible</string>
 
 </resources>

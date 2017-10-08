@@ -136,6 +136,7 @@ public class SplashActivity extends AppCompatActivity {
             dbVotacion.insert("Candidatos", null, nuevoRegistro);
 
             Log.i("SQL", "Base de datos creada: " + lista + "Candidatos");
+
         } while (false);
 
 

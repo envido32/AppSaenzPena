@@ -10,4 +10,17 @@
         <item>FRA</item>
         <item>ALE</item>
     </string-array>
+
+    <string-array name="list_titles_usrType">
+        <item>Votante</item>
+        <item>Fiscal</item>
+        <item>Admin</item>
+    </string-array>
+
+    <integer-array name="list_values_usrType">
+        <item>3</item>
+        <item>2</item>
+        <item>1</item>
+    </integer-array>
+
 </resources>

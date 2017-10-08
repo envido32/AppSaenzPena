@@ -55,6 +55,7 @@ public class DialogNewCandidato extends DialogFragment {
 
                         //Insertamos el registro en la base de datoss
                         dbVotacion.insert("Candidatos", null, nuevoRegistro);
+                        dbVotacion.close();
 
                         dialog.cancel();
                     }

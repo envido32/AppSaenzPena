@@ -2,6 +2,7 @@ package com.electiva.envido32.appsaenzpena;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -91,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()) {
-            case R.id.action_settings:
+            case R.id.action_settings: {
                 //Creamos el Intent
                 Intent intent =
                         new Intent(getBaseContext(), SettingsActivity.class);
@@ -99,11 +100,14 @@ public class MainActivity extends AppCompatActivity {
                 //Iniciamos la nueva actividad
                 startActivity(intent);
                 return true;
+            }
 
-            case R.id.action_add:
-                //TODO: agregar candidato
-                Toast.makeText(getApplicationContext(), R.string.not_avaliable, Toast.LENGTH_LONG).show();
+            case R.id.action_add: {
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                DialogNewUsuario dialogo = new DialogNewUsuario();
+                dialogo.show(fragmentManager, "tagAlerta");
                 return true;
+            }
 
             default:
                 return super.onOptionsItemSelected(item);

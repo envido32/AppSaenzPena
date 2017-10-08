@@ -20,54 +20,25 @@ public class CandidatosActivity extends AppCompatActivity {
     public ListView listCandidatos;
     public Toolbar myToolbar;
     public ArrayList<CandidatoClass> datos_candidatos = new ArrayList<>();
+    public AdaptadorCandidatos adaptador;
+    public VotacionSQLiteHelper dbVotacionHelper;
+    public SQLiteDatabase dbVotacion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_candidatos);
 
+
         //Definimos la Toolbar
         myToolbar = (Toolbar) findViewById(R.id.appbar);
         setSupportActionBar(myToolbar);
-
-        //Abrimos la base de datos 'Candidatos' en modo r/w
-        VotacionSQLiteHelper dbVotacionHelper =
-                new VotacionSQLiteHelper(getBaseContext(), "DB_Votacion", null, 1);
-
-        SQLiteDatabase dbVotacion = dbVotacionHelper.getReadableDatabase();
-
-        //Si abrio correctamente la base de datos la cargo en el array
-        if(dbVotacion != null){
-            String[] campos = new String[] {"lista", "partido", "nombre"};
-
-            Cursor dbVotacionCursor = dbVotacion.query("Candidatos", campos, null, null, null, null, null);
-            //dbVotacionCursor = null; // DEBUG
-            //Nos aseguramos de que existe al menos un registro
-            if (dbVotacionCursor.moveToFirst()) {
-                do {
-
-                    int lista = dbVotacionCursor.getInt(0);
-                    String partido = dbVotacionCursor.getString(1);
-                    String nombre = dbVotacionCursor.getString(2);
-
-                    CandidatoClass addCandidato =
-                            new CandidatoClass(lista, partido, nombre);
-                    datos_candidatos.add(addCandidato);
-
-                } while(dbVotacionCursor.moveToNext());
-            }
-        }
-        else
-        {
-            Toast.makeText(getApplicationContext(), R.string.db_error, Toast.LENGTH_LONG).show();
-        }
-
-        AdaptadorCandidatos adaptador =
-                new AdaptadorCandidatos(this, datos_candidatos);
-
+        adaptador = new AdaptadorCandidatos(this, datos_candidatos);
         listCandidatos = (ListView)findViewById(R.id.ListViewCandidatos);
-        listCandidatos.setAdapter(adaptador);
 
+        refreshView();
+
+        listCandidatos.setAdapter(adaptador);
         listCandidatos.setOnItemLongClickListener(
                 new AdapterView.OnItemLongClickListener() {
                     public boolean onItemLongClick(AdapterView<?> parent,
@@ -109,7 +80,49 @@ public class CandidatosActivity extends AppCompatActivity {
                 });
     }
 
+    public void refreshView() {
+        adaptador.clear();
+        datos_candidatos.clear();
 
+        //Abrimos la base de datos en modo read only
+        dbVotacionHelper = new VotacionSQLiteHelper(getBaseContext(), "DB_Votacion", null, 1);
+        dbVotacion = dbVotacionHelper.getReadableDatabase();
+
+        //Si abrio correctamente la base de datos la cargo en el array
+        if(dbVotacion != null){
+            String[] campos = new String[] {"lista", "partido", "nombre"};
+
+            Cursor dbVotacionCursor = dbVotacion.query("Candidatos", campos, null, null, null, null, null);
+            //dbVotacionCursor = null; // DEBUG
+            //Nos aseguramos de que existe al menos un registro
+            if (dbVotacionCursor.moveToFirst()) {
+                do {
+
+                    int lista = dbVotacionCursor.getInt(0);
+                    String partido = dbVotacionCursor.getString(1);
+                    String nombre = dbVotacionCursor.getString(2);
+
+                    CandidatoClass addCandidato =
+                            new CandidatoClass(lista, partido, nombre);
+                    datos_candidatos.add(addCandidato);
+
+                } while(dbVotacionCursor.moveToNext());
+            }
+            adaptador.notifyDataSetChanged();
+            dbVotacion.close();
+        }
+        else
+        {
+            Toast.makeText(getApplicationContext(), R.string.db_error, Toast.LENGTH_LONG).show();
+        }
+
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        refreshView();
+    }
     // Agregar botones al Toolbar
     @Override
     public boolean onCreateOptionsMenu (Menu menu) {
@@ -121,7 +134,7 @@ public class CandidatosActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()) {
-            case R.id.action_settings:
+            case R.id.action_settings: {
                 //Creamos el Intent
                 Intent intent =
                         new Intent(getBaseContext(), SettingsActivity.class);
@@ -129,13 +142,14 @@ public class CandidatosActivity extends AppCompatActivity {
                 //Iniciamos la nueva actividad
                 startActivity(intent);
                 return true;
+            }
 
-            case R.id.action_add:
+            case R.id.action_add: {
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 DialogNewCandidato dialogo = new DialogNewCandidato();
                 dialogo.show(fragmentManager, "tagAlerta");
-                //TODO: refresh screen
                 return true;
+            }
 
             default:
                 return super.onOptionsItemSelected(item);
