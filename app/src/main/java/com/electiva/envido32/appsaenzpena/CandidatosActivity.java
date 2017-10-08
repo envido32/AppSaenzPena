@@ -34,7 +34,7 @@ public class CandidatosActivity extends AppCompatActivity {
         VotacionSQLiteHelper dbVotacionHelper =
                 new VotacionSQLiteHelper(getBaseContext(), "DB_Votacion", null, 1);
 
-        SQLiteDatabase dbVotacion = dbVotacionHelper.getWritableDatabase();
+        SQLiteDatabase dbVotacion = dbVotacionHelper.getReadableDatabase();
 
         //Si abrio correctamente la base de datos la cargo en el array
         if(dbVotacion != null){
@@ -131,11 +131,10 @@ public class CandidatosActivity extends AppCompatActivity {
                 return true;
 
             case R.id.action_add:
-                //TODO: agregar candidato
-                //Toast.makeText(getApplicationContext(), R.string.not_avaliable, Toast.LENGTH_LONG).show();
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 DialogNewCandidato dialogo = new DialogNewCandidato();
                 dialogo.show(fragmentManager, "tagAlerta");
+                //TODO: refresh screen
                 return true;
 
             default:
