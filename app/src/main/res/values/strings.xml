@@ -10,12 +10,18 @@
     <!-- Login Activity -->
     <string name="pass_error">Nombre de usuario y/o contraseña incorrecto.</string>
     <string name="db_error">Error en la apertura de la base de datos de usuarios.</string>
+
     <!-- Wellcome Activity -->
     <string name="wellcome_screen">Bienvenido</string>
     <string name="candidatos">Candidatos</string>
     <string name="escrutinio">Escrutinio</string>
     <string name="padron">Padrón</string>
     <string name="votar">Votar</string>
+
+    <!-- New Candidato -->
+    <string name="candidato">Candidato</string>
+    <string name="partido">Partido</string>
+    <string name="nro_lista">Lista</string>
 
     <string name="not_avaliable">Aún no disponible</string>
 

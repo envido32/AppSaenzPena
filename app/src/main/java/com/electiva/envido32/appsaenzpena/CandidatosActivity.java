@@ -3,6 +3,7 @@ package com.electiva.envido32.appsaenzpena;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -19,7 +20,7 @@ public class CandidatosActivity extends AppCompatActivity {
     public ListView listCandidatos;
     public Toolbar myToolbar;
     public ArrayList<CandidatoClass> datos_candidatos = new ArrayList<>();
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +54,7 @@ public class CandidatosActivity extends AppCompatActivity {
                             new CandidatoClass(lista, partido, nombre);
                     datos_candidatos.add(addCandidato);
 
-                }while(dbVotacionCursor.moveToNext());
+                } while(dbVotacionCursor.moveToNext());
             }
         }
         else
@@ -108,6 +109,7 @@ public class CandidatosActivity extends AppCompatActivity {
                 });
     }
 
+
     // Agregar botones al Toolbar
     @Override
     public boolean onCreateOptionsMenu (Menu menu) {
@@ -130,7 +132,10 @@ public class CandidatosActivity extends AppCompatActivity {
 
             case R.id.action_add:
                 //TODO: agregar candidato
-                Toast.makeText(getApplicationContext(), R.string.not_avaliable, Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), R.string.not_avaliable, Toast.LENGTH_LONG).show();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                DialogNewCandidato dialogo = new DialogNewCandidato();
+                dialogo.show(fragmentManager, "tagAlerta");
                 return true;
 
             default:

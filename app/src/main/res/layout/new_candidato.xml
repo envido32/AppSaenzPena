@@ -4,33 +4,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    android:padding="3sp" >
+    android:padding="3dp" >
 
     <ImageView
-        android:id="@+id/imgPartido"
-        android:layout_width="50sp"
-        android:layout_height="50sp"
-        android:src="@drawable/ic_people_black_24dp" />
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_launcher" />
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="3sp">
+        android:padding="3dp">
 
         <TextView
-            android:id="@+id/LblNombre"
+            android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="20sp" />
+            android:text="@string/partido" />
 
         <TextView
-            android:id="@+id/LblPartido"
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="normal"
-            android:textSize="12sp" />
+            android:text="@string/candidatos" />
 
     </LinearLayout>
 

@@ -7,9 +7,15 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class VotacionSQLiteHelper extends SQLiteOpenHelper {
 
+    // Table Names
+    private static final String TABLE_CANDIDATOS = "Candidatos";
+    private static final String TABLE_USUARIOS = "Usuarios";
+
     //Sentencia SQL para crear la tabla de Usuarios
-    String[] sqlCreate = {"CREATE TABLE Candidatos (lista INTEGER, partido TEXT, nombre TEXT)",
-                        "CREATE TABLE Usuarios (codigo INTEGER, nombre TEXT, pass TEXT)" };
+    String[] sqlCreate = {"CREATE TABLE " + TABLE_CANDIDATOS +
+            " (lista INTEGER, partido TEXT, nombre TEXT)",
+                        "CREATE TABLE " + TABLE_USUARIOS +
+            " (codigo INTEGER, nombre TEXT, pass TEXT)" };
 
     public VotacionSQLiteHelper(Context contexto, String nombre,
                                 CursorFactory factory, int version) {
@@ -19,7 +25,7 @@ public class VotacionSQLiteHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         //Se ejecuta la sentencia SQL de creación de la tabla
-        for (int i=0; i<2; i++){
+        for (int i=0; i<sqlCreate.length; i++){
             db.execSQL(sqlCreate[i]);
         }
     }
@@ -32,12 +38,10 @@ public class VotacionSQLiteHelper extends SQLiteOpenHelper {
         //      a la nueva, por lo que este método debería ser más elaborado.
 
         //Se elimina la versión anterior de la tabla
-        db.execSQL("DROP TABLE IF EXISTS Candidatos");
-        db.execSQL("DROP TABLE IF EXISTS Usuarios");
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CANDIDATOS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USUARIOS);
 
         //Se crea la nueva versión de la tabla
-        for (int i=0; i<2; i++){
-            db.execSQL(sqlCreate[i]);
-        }
+        onCreate(db);
     }
 }

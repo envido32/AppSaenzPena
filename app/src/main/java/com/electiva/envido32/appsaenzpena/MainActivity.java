@@ -100,9 +100,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
 
+            case R.id.action_add:
+                //TODO: agregar candidato
+                Toast.makeText(getApplicationContext(), R.string.not_avaliable, Toast.LENGTH_LONG).show();
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
-
         }
     }
 }

@@ -33,6 +33,8 @@ public class SplashActivity extends AppCompatActivity {
                 new VotacionSQLiteHelper(this, "DB_Votacion", null, 1);
 
         SQLiteDatabase dbVotacion = dbVotacionHelper.getWritableDatabase();
+        dbVotacionHelper.onUpgrade(dbVotacion, 1, 1);
+
         do {
 
             //TODO: Encriptar password
