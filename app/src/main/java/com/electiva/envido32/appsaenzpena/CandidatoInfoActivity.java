@@ -29,7 +29,8 @@ public class CandidatoInfoActivity extends AppCompatActivity {
         myToolbar = (Toolbar) findViewById(R.id.appbar);
 
         //Construimos el mensaje a mostrar
-        myToolbar.setTitle("Lista " +  bundle.getInt("lista"));
+        myToolbar.setTitle("Partido not found");
+        myToolbar.setSubtitle("Lista " +  bundle.getInt("lista"));
         setSupportActionBar(myToolbar);
 
 
@@ -53,7 +54,7 @@ public class CandidatoInfoActivity extends AppCompatActivity {
                     String partido = dbVotacionCursor.getString(1);
                     String nombre = dbVotacionCursor.getString(2);
 
-                    myToolbar.setSubtitle(partido);
+                    myToolbar.setTitle(partido);
 
                 } while(dbVotacionCursor.moveToNext());
             }

@@ -44,12 +44,17 @@ public class CandidatosActivity extends AppCompatActivity {
                     public boolean onItemLongClick(AdapterView<?> parent,
                                                 android.view.View v, int position, long id) {
 
-                        String opcionSeleccionada =
-                                ((CandidatoClass)parent.getItemAtPosition(position)).getPartido();
+                        int lista = ((CandidatoClass)parent.getItemAtPosition(position)).getLista();
 
-                        Toast.makeText(getApplicationContext(),
-                                "Long! " + opcionSeleccionada,
-                                Toast.LENGTH_LONG).show();
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("lista", lista);
+
+                        FragmentManager fragmentManager = getSupportFragmentManager();
+
+                        DialogDeleteCandidato dialogo = new DialogDeleteCandidato();
+                        dialogo.setArguments(bundle);
+                        dialogo.show(fragmentManager, "tagAlerta");
+
                         return true;
                     }
                 });
