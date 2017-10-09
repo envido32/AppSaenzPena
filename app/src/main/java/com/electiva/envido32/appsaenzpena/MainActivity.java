@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Definimos la Toolbar
         myToolbar = (Toolbar) findViewById(R.id.appbar);
+        myToolbar.setTitle(R.string.app_name);
         setSupportActionBar(myToolbar);
 
         textSaludos = (TextView) findViewById(R.id.textSaludos);
@@ -85,6 +86,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu (Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        return true;
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
         return true;
     }
 

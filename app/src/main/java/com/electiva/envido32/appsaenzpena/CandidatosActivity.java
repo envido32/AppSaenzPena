@@ -29,9 +29,9 @@ public class CandidatosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_candidatos);
 
-
         //Definimos la Toolbar
         myToolbar = (Toolbar) findViewById(R.id.appbar);
+        myToolbar.setTitle(R.string.candidatos);
         setSupportActionBar(myToolbar);
         adaptador = new AdaptadorCandidatos(this, datos_candidatos);
         listCandidatos = (ListView)findViewById(R.id.ListViewCandidatos);
@@ -123,10 +123,18 @@ public class CandidatosActivity extends AppCompatActivity {
         super.onResume();
         refreshView();
     }
+
     // Agregar botones al Toolbar
     @Override
     public boolean onCreateOptionsMenu (Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        return true;
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
         return true;
     }
 

@@ -20,6 +20,13 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Log.wtf("Init", "WFT log visible");
+        Log.d("Init", "DEBUG log visible");
+        Log.e("Init", "ERROR log visible");
+        Log.i("Init", "INFO log visible");
+        Log.v("Init", "VERBOSE log visible");
+        Log.w("Init", "WARNING log visible");
+
         // Definimos la orientación de la SplashScreen como Portrait (vertical)
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         // Escondemos el título de la app
