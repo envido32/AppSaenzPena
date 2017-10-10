@@ -1,7 +1,10 @@
 package com.electiva.envido32.appsaenzpena;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -9,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,10 +26,22 @@ public class MainActivity extends AppCompatActivity {
     public Button btnVotar;
     public Button btnEscrutineo;
     public Toolbar myToolbar;
+    public boolean darkTheme;
+    public SharedPreferences config;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        config = PreferenceManager.getDefaultSharedPreferences(this);
+        darkTheme = config.getBoolean("opcTheme", darkTheme);
+        if (darkTheme) {
+            setTheme(R.style.DarkTheme);
+        }
+        else {
+            setTheme(R.style.AppTheme);
+        }
+
         setContentView(R.layout.activity_main);
 
         //Definimos la Toolbar
@@ -41,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
 
         //Recuperamos la información pasada en el intent
         Bundle bundle = this.getIntent().getExtras();
+
+
 
         //Construimos el mensaje a mostrar
         textSaludos.setText("Bienvenido:  " + bundle.getString("usrMail"));
@@ -88,6 +106,21 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main, menu);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         return true;
+    }
+
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        config = PreferenceManager.getDefaultSharedPreferences(this);
+        darkTheme = config.getBoolean("opcTheme", false);
+        if (darkTheme) {
+            setTheme(R.style.DarkTheme);
+        }
+        else {
+            setTheme(R.style.AppTheme);
+        }
+        //TODO: add view refresh
     }
 
     @Override

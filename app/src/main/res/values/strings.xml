@@ -22,7 +22,7 @@
     <string name="candidato">Candidato</string>
     <string name="partido">Partido</string>
     <string name="nro_lista">Lista</string>
-    <string name="delete_candidato">Esta seguro que desea eliminar la lista?: </string>
+    <string name="delete_candidato">Esta seguro que desea eliminar la lista?</string>
 
     <!-- New Usuario -->
     <string name="codigo">Codigo</string>

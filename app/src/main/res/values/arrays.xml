@@ -11,6 +11,11 @@
         <item>ALE</item>
     </string-array>
 
+    <string-array name="themes">
+        <item>DarkTheme</item>
+        <item>AppTheme</item>
+    </string-array>
+
     <string-array name="list_titles_usrType">
         <item>Votante</item>
         <item>Fiscal</item>

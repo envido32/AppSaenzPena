@@ -1,8 +1,10 @@
 package com.electiva.envido32.appsaenzpena;
 
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -17,9 +19,21 @@ public class CandidatoInfoActivity extends AppCompatActivity {
     public VotacionSQLiteHelper dbVotacionHelper;
     public SQLiteDatabase dbVotacion;
 
+    public boolean darkTheme;
+    public SharedPreferences config;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        config = PreferenceManager.getDefaultSharedPreferences(this);
+        darkTheme = config.getBoolean("opcTheme", darkTheme);
+        if (darkTheme) {
+            setTheme(R.style.DarkTheme);
+        }
+        else {
+            setTheme(R.style.AppTheme);
+        }
         setContentView(R.layout.activity_candidato_info);
 
         //Recuperamos la información pasada en el intent
