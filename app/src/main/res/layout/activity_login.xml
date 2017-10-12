@@ -22,14 +22,15 @@
         android:id="@+id/editTextMail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/editTextPass"
+        android:layout_marginTop="105dp"
         android:ems="10"
         android:hint="@string/hint_user"
         android:inputType="textEmailAddress"
-        app:layout_widthPercent="50%"
+        android:text="votante"
         app:layout_heightPercent="10%"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/editTextPass"
-        android:layout_marginTop="105dp" />
+        app:layout_widthPercent="50%" />
 
     <EditText
         android:id="@+id/editTextPass"
@@ -37,6 +38,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/hint_pass"
+        android:text=""
         android:inputType="textPassword"
         app:layout_widthPercent="50%"
         app:layout_heightPercent="10%"

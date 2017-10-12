@@ -92,7 +92,6 @@ public class CandidatosActivity extends AppCompatActivity {
                                 startActivity(intent);
                             }
                             return true;
-
                         }
                     });
         }

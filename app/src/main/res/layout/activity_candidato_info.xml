@@ -40,10 +40,22 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" >
 
-                    <TextView android:id="@+id/textView1"
-                        android:text="Contenido Tab 1"
+                    <TextView
+                        android:id="@+id/textView1"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:text="Lista completa de candidatos"
+                        android:textAlignment="center"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <ListView
+                        android:id="@+id/ListViewCompleta"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/textView1"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true" />
                 </LinearLayout>
 
                 <LinearLayout android:id="@+id/tab2"
@@ -52,9 +64,11 @@
                     android:layout_height="match_parent" >
 
                     <TextView android:id="@+id/textView2"
-                        android:text="Contenido Tab 2"
+                        android:text="Descargando plataforma..."
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:textStyle="italic" />
                 </LinearLayout>
             </FrameLayout>
         </LinearLayout>

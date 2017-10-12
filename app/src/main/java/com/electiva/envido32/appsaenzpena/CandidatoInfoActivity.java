@@ -11,18 +11,23 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class CandidatoInfoActivity extends AppCompatActivity {
 
     public Toolbar myToolbar;
     public VotacionSQLiteHelper dbVotacionHelper;
     public SQLiteDatabase dbVotacion;
+    public ListView listCandidatos;
+    public ArrayList<String> datos = new ArrayList<>();
 
     public String darkTheme;
     public SharedPreferences config;
-
     public SharedPreferences prefs;
     public int usrType;
 
@@ -40,11 +45,22 @@ public class CandidatoInfoActivity extends AppCompatActivity {
         }
         setContentView(R.layout.activity_candidato_info);
 
+        ArrayAdapter<String> adaptador =
+                new ArrayAdapter<>(this,
+                        android.R.layout.simple_list_item_1, datos);
+
+        datos.clear();
+        for (int i = 1; i <= 20; i++){
+            datos.add( i + " - Apellido, Nombre");
+        }
+
         //Recuperamos la información pasada en el intent
         Bundle bundle = this.getIntent().getExtras();
 
         //Definimos la Toolbar
         myToolbar = (Toolbar) findViewById(R.id.appbar);
+        listCandidatos = (ListView)findViewById(R.id.ListViewCompleta);
+        listCandidatos.setAdapter(adaptador);
 
         //Construimos el mensaje a mostrar
         myToolbar.setTitle("Partido not found");
