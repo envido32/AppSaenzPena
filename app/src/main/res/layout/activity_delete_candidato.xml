@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.electiva.envido32.appsaenzpena.NewCandidatoActivity">
+
+    <TextView
+        android:id="@+id/titleDelCandidato"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="38sp"
+        android:text="@string/delete_candidato"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/subtitleDelCandidato"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/delete_candidato"
+        android:textSize="20sp"
+        android:textStyle="italic"
+        android:layout_below="@+id/titleDelCandidato"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20sp" />
+
+    <Button
+        android:id="@+id/buttonCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cancel"
+        app:layout_widthPercent="30%"
+        app:layout_heightPercent="10%"
+        android:layout_below="@+id/subtitleDelCandidato"
+        android:layout_alignStart="@+id/subtitleDelCandidato"
+        android:layout_marginTop="20sp" />
+
+    <Button
+        android:id="@+id/buttonAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/delete"
+        app:layout_widthPercent="30%"
+        app:layout_heightPercent="10%"
+        android:layout_below="@+id/subtitleDelCandidato"
+        android:layout_alignEnd="@+id/subtitleDelCandidato"
+        android:layout_marginTop="20sp" />
+
+</android.support.percent.PercentRelativeLayout>

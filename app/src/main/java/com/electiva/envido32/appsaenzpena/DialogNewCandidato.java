@@ -28,9 +28,7 @@ public class DialogNewCandidato extends DialogFragment {
         final View mDialog = inflater.inflate(R.layout.new_candidato, null);
 
         //Abrimos la base de datos 'Candidatos' en modo r/w
-        dbVotacionHelper =
-                new VotacionSQLiteHelper(getContext(), "DB_Votacion", null, 1);
-
+        dbVotacionHelper = new VotacionSQLiteHelper(getContext(), "DB_Votacion", null, 1);
         dbVotacion = dbVotacionHelper.getWritableDatabase();
 
                 builder.setView(mDialog);

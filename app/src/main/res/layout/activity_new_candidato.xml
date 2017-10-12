@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.electiva.envido32.appsaenzpena.NewCandidatoActivity">
+
+    <TextView
+        android:id="@+id/titleNewCandidato"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="38dp"
+        android:text="@string/new_candidato"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/newPartido"
+        android:hint="@string/partido"
+        android:inputType="textCapSentences"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        app:layout_widthPercent="60%"
+        app:layout_heightPercent="10%"
+        android:layout_below="@+id/titleNewCandidato"
+        android:layout_alignStart="@+id/titleNewCandidato"
+        android:layout_marginTop="10sp" />
+
+    <EditText
+        android:id="@+id/newCandidato"
+        android:hint="@string/candidato"
+        android:inputType="textCapWords"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        app:layout_widthPercent="60%"
+        app:layout_heightPercent="10%"
+        android:layout_below="@+id/newPartido"
+        android:layout_alignStart="@+id/newPartido"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:id="@+id/newLista"
+        android:hint="@string/nro_lista"
+        android:inputType="number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        app:layout_widthPercent="60%"
+        app:layout_heightPercent="10%"
+        android:layout_below="@+id/newCandidato"
+        android:layout_alignStart="@+id/newCandidato"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/buttonCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cancel"
+        app:layout_widthPercent="30%"
+        app:layout_heightPercent="10%"
+        android:layout_below="@+id/newLista"
+        android:layout_alignStart="@+id/newLista" />
+
+    <Button
+        android:id="@+id/buttonAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/agregar"
+        app:layout_widthPercent="30%"
+        app:layout_heightPercent="10%"
+        android:layout_below="@+id/newLista"
+        android:layout_toEndOf="@+id/buttonCancel" />
+
+</android.support.percent.PercentRelativeLayout>

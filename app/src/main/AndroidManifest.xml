@@ -19,7 +19,9 @@
         <activity android:name=".SettingsActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".CandidatosActivity" />
-        <activity android:name=".CandidatoInfoActivity"></activity>
+        <activity android:name=".CandidatoInfoActivity" />
+        <activity android:name=".NewCandidatoActivity" />
+        <activity android:name=".DeleteCandidatoActivity"></activity>
     </application>
 
 </manifest>

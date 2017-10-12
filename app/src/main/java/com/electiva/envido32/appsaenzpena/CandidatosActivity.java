@@ -26,7 +26,8 @@ public class CandidatosActivity extends AppCompatActivity {
     public VotacionSQLiteHelper dbVotacionHelper;
     public SQLiteDatabase dbVotacion;
 
-    public boolean darkTheme;
+    public String darkTheme;
+    public boolean opcDialog;
     public SharedPreferences config;
 
     @Override
@@ -34,8 +35,8 @@ public class CandidatosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         config = PreferenceManager.getDefaultSharedPreferences(this);
-        darkTheme = config.getBoolean("opcTheme", darkTheme);
-        if (darkTheme) {
+        darkTheme = config.getString("opcTheme", darkTheme);
+        if (darkTheme.toString().equals("DARK")) {
             setTheme(R.style.DarkTheme);
         }
         else {
@@ -58,18 +59,33 @@ public class CandidatosActivity extends AppCompatActivity {
                     public boolean onItemLongClick(AdapterView<?> parent,
                                                 android.view.View v, int position, long id) {
 
-                        int lista = ((CandidatoClass)parent.getItemAtPosition(position)).getLista();
+                        config = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                        opcDialog = config.getBoolean("opcDialog", opcDialog);
 
+                        int lista = ((CandidatoClass)parent.getItemAtPosition(position)).getLista();
                         Bundle bundle = new Bundle();
                         bundle.putInt("lista", lista);
 
-                        FragmentManager fragmentManager = getSupportFragmentManager();
+                        if (opcDialog) {
 
-                        DialogDeleteCandidato dialogo = new DialogDeleteCandidato();
-                        dialogo.setArguments(bundle);
-                        dialogo.show(fragmentManager, "tagAlerta");
+                            FragmentManager fragmentManager = getSupportFragmentManager();
 
+                            DialogDeleteCandidato dialogo = new DialogDeleteCandidato();
+                            dialogo.setArguments(bundle);
+                            dialogo.show(fragmentManager, "tagAlerta");
+                        }
+                        else {
+                            //Creamos el Intent
+                            Intent intent =
+                                    new Intent(getBaseContext(), DeleteCandidatoActivity.class);
+
+                            //Añadimos la información al intent
+                            intent.putExtras(bundle);
+                            //Iniciamos la nueva actividad
+                            startActivity(intent);
+                        }
                         return true;
+
                     }
                 });
 
@@ -141,6 +157,14 @@ public class CandidatosActivity extends AppCompatActivity {
     public void onResume(){
         super.onResume();
         refreshView();
+        config = PreferenceManager.getDefaultSharedPreferences(this);
+        darkTheme = config.getString("opcTheme", darkTheme);
+        if (darkTheme.toString().equals("DARK")) {
+            setTheme(R.style.DarkTheme);
+        }
+        else {
+            setTheme(R.style.AppTheme);
+        }
     }
 
     // Agregar botones al Toolbar
@@ -172,9 +196,20 @@ public class CandidatosActivity extends AppCompatActivity {
             }
 
             case R.id.action_add: {
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                DialogNewCandidato dialogo = new DialogNewCandidato();
-                dialogo.show(fragmentManager, "tagAlerta");
+                config = PreferenceManager.getDefaultSharedPreferences(this);
+                opcDialog = config.getBoolean("opcDialog", opcDialog);
+                if (opcDialog) {
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    DialogNewCandidato dialogo = new DialogNewCandidato();
+                    dialogo.show(fragmentManager, "tagAlerta");
+                }
+                else {
+                    //Creamos el Intent
+                    Intent intent =
+                            new Intent(getBaseContext(), NewCandidatoActivity.class);
+                    //Iniciamos la nueva actividad
+                    startActivity(intent);
+                }
                 return true;
             }
 

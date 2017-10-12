@@ -18,11 +18,16 @@
     <string name="padron">Padrón</string>
     <string name="votar">Votar</string>
 
-    <!-- New Candidato -->
+    <!-- New/Del Candidato -->
     <string name="candidato">Candidato</string>
+    <string name="new_candidato">Agregar candidato</string>
     <string name="partido">Partido</string>
     <string name="nro_lista">Lista</string>
     <string name="delete_candidato">Esta seguro que desea eliminar la lista?</string>
+    <string name="agregar">Agregar</string>
+    <string name="delete">eliminar</string>
+    <string name="cancel">Cancelar</string>
+
 
     <!-- New Usuario -->
     <string name="codigo">Codigo</string>

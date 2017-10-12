@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     public Button btnVotar;
     public Button btnEscrutineo;
     public Toolbar myToolbar;
-    public boolean darkTheme;
+    public String darkTheme;
     public SharedPreferences config;
 
     @Override
@@ -34,14 +34,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         config = PreferenceManager.getDefaultSharedPreferences(this);
-        darkTheme = config.getBoolean("opcTheme", darkTheme);
-        if (darkTheme) {
+        darkTheme = config.getString("opcTheme", darkTheme);
+        if (darkTheme.toString().equals("DARK")) {
             setTheme(R.style.DarkTheme);
         }
         else {
             setTheme(R.style.AppTheme);
         }
-
         setContentView(R.layout.activity_main);
 
         //Definimos la Toolbar
@@ -57,8 +56,6 @@ public class MainActivity extends AppCompatActivity {
 
         //Recuperamos la información pasada en el intent
         Bundle bundle = this.getIntent().getExtras();
-
-
 
         //Construimos el mensaje a mostrar
         textSaludos.setText("Bienvenido:  " + bundle.getString("usrMail"));
@@ -113,8 +110,9 @@ public class MainActivity extends AppCompatActivity {
     public void onResume(){
         super.onResume();
         config = PreferenceManager.getDefaultSharedPreferences(this);
-        darkTheme = config.getBoolean("opcTheme", false);
-        if (darkTheme) {
+        config = PreferenceManager.getDefaultSharedPreferences(this);
+        darkTheme = config.getString("opcTheme", darkTheme);
+        if (darkTheme.toString().equals("DARK")) {
             setTheme(R.style.DarkTheme);
         }
         else {

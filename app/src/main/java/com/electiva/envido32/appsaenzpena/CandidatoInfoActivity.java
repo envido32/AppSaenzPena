@@ -19,7 +19,7 @@ public class CandidatoInfoActivity extends AppCompatActivity {
     public VotacionSQLiteHelper dbVotacionHelper;
     public SQLiteDatabase dbVotacion;
 
-    public boolean darkTheme;
+    public String darkTheme;
     public SharedPreferences config;
 
     @Override
@@ -27,8 +27,8 @@ public class CandidatoInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         config = PreferenceManager.getDefaultSharedPreferences(this);
-        darkTheme = config.getBoolean("opcTheme", darkTheme);
-        if (darkTheme) {
+        darkTheme = config.getString("opcTheme", darkTheme);
+        if (darkTheme.toString().equals("DARK")) {
             setTheme(R.style.DarkTheme);
         }
         else {
@@ -111,6 +111,21 @@ public class CandidatoInfoActivity extends AppCompatActivity {
         //getMenuInflater().inflate(R.menu.main, menu);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         return true;
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        config = PreferenceManager.getDefaultSharedPreferences(this);
+        config = PreferenceManager.getDefaultSharedPreferences(this);
+        darkTheme = config.getString("opcTheme", darkTheme);
+        if (darkTheme.toString().equals("DARK")) {
+            setTheme(R.style.DarkTheme);
+        }
+        else {
+            setTheme(R.style.AppTheme);
+        }
+        //TODO: add view refresh
     }
 
     @Override

@@ -1,36 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-        <PreferenceCategory android:title="Categoría 1">
+        <PreferenceCategory android:title="General">
+
+            <ListPreference
+                    android:key="opcTheme"
+                    android:title="Estetica"
+                    android:summary="Elegir el tipo de colores"
+                    android:dialogTitle="Indicar colores"
+                    android:entries="@array/themetype"
+                    android:entryValues="@array/themecode" />
 
             <CheckBoxPreference
-                android:key="opcTheme"
-                android:title="Dark Theme"
-                android:summary="Cambiar el estilo de la aplicacion a oscuro" />
-
-            <EditTextPreference
-                android:key="opcion2"
-                android:title="Dato extra"
-                android:summary="Descripción de la preferencia"
-                android:dialogTitle="Introduce valor" />
-
-        </PreferenceCategory>
-
-        <PreferenceCategory android:title="Internacional">
-            <ListPreference
-                android:key="opcPaisSingle"
-                android:title="Elegir pais"
-                android:summary="Pais de residencia"
-                android:dialogTitle="Indicar Pais"
-                android:entries="@array/pais"
-                android:entryValues="@array/codigopais" />
-
-            <MultiSelectListPreference
-                android:key="opcPaisMulti"
-                android:title="Elegir pais/es"
-                android:summary="Paises a analizar"
-                android:dialogTitle="Indicar Pais/es"
-                android:entries="@array/pais"
-                android:entryValues="@array/codigopais" />
+                android:key="opcDialog"
+                android:title="Utilizar dialogos"
+                android:summary="Si las listas de candidatos no refrescan al cambiarlas desactivar esta opcion." />
 
         </PreferenceCategory>
 </PreferenceScreen>

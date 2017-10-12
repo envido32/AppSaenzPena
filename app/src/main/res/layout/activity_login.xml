@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context="com.electiva.envido32.appsaenzpena.LoginActivity">
 
+    <TextView
+        android:id="@+id/textTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="38dp"
+        android:text="@string/title_screen"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
     <EditText
         android:id="@+id/editTextMail"
         android:layout_width="wrap_content"
@@ -42,16 +54,5 @@
         android:layout_alignStart="@+id/editTextPass"
         android:layout_marginTop="78dp" />
 
-    <TextView
-        android:id="@+id/textTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="38dp"
-        android:text="@string/title_screen"
-        android:textAlignment="center"
-        android:textSize="30sp"
-        android:textStyle="bold" />
 
 </android.support.percent.PercentRelativeLayout>

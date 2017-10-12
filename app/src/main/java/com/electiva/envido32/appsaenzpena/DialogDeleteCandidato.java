@@ -23,8 +23,6 @@ public class DialogDeleteCandidato extends DialogFragment {
 
         final AlertDialog.Builder builder =
                 new AlertDialog.Builder(getActivity());
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        final View mDialog = inflater.inflate(R.layout.new_candidato, null);
         final int lista = this.getArguments().getInt("lista");
 
         //Abrimos la base de datos 'Candidatos' en modo r/w
@@ -42,7 +40,6 @@ public class DialogDeleteCandidato extends DialogFragment {
 
                         //Si abrio correctamente la base de datos la cargo en el array
                         if(dbVotacion != null){
-                            String[] campos = new String[] {"lista", "partido", "nombre"};
                             String[] args = new String[] {String.valueOf(lista)};
                             dbVotacion.delete("Candidatos", "lista=?", args);
                         }

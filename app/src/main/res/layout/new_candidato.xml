@@ -8,18 +8,18 @@
 
         <EditText
             android:id="@+id/newPartido"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:hint="@string/partido"
             android:inputType="textCapSentences"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             />
 
         <EditText
             android:id="@+id/newCandidato"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:hint="@string/candidato"
             android:inputType="textCapWords"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             />
 
         <EditText
