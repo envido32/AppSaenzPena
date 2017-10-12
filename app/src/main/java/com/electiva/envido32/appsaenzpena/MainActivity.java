@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     public Toolbar myToolbar;
     public String darkTheme;
     public SharedPreferences config;
+    public SharedPreferences prefs;
+    public int usrType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,13 +58,49 @@ public class MainActivity extends AppCompatActivity {
 
         //Recuperamos la información pasada en el intent
         Bundle bundle = this.getIntent().getExtras();
+        prefs = getSharedPreferences("MyPref", Context.MODE_PRIVATE);
+        usrType = prefs.getInt("usrType", 0);
+        //usrType = bundle.getInt("usrType");
 
         //Construimos el mensaje a mostrar
         textSaludos.setText("Bienvenido:  " + bundle.getString("usrMail"));
 
         // DEBUG
-        Log.i("UsrType", "UsrType = " + bundle.getInt("usrType"));
-        //Toast.makeText(getApplicationContext(), "DEBUG: UsrType = " + bundle.getInt("usrType"), Toast.LENGTH_LONG).show();
+        Log.i("UsrType", "UsrType = " + usrType);
+        //Toast.makeText(getApplicationContext(), "DEBUG: UsrType = " + usrType, Toast.LENGTH_LONG).show();
+
+        //TODO: Esconder botones no habilitados
+
+        switch (usrType) {
+            case 1: {       // Admin
+                btnCandidatos.setVisibility(View.VISIBLE);
+                btnPadron.setVisibility(View.VISIBLE);
+                btnVotar.setVisibility(View.VISIBLE);
+                btnEscrutineo.setVisibility(View.VISIBLE);
+            }
+            break;
+            case 2: {       // Fiscal
+                btnCandidatos.setVisibility(View.VISIBLE);
+                btnPadron.setVisibility(View.VISIBLE);
+                btnVotar.setVisibility(View.VISIBLE);
+                btnEscrutineo.setVisibility(View.VISIBLE);
+            }
+            break;
+            case 3: {       // Votante
+                btnCandidatos.setVisibility(View.VISIBLE);
+                btnPadron.setVisibility(View.VISIBLE);
+                btnVotar.setVisibility(View.VISIBLE);
+                btnEscrutineo.setVisibility(View.GONE);
+            }
+            break;
+            default: {
+                btnCandidatos.setVisibility(View.GONE);
+                btnPadron.setVisibility(View.GONE);
+                btnVotar.setVisibility(View.GONE);
+                btnEscrutineo.setVisibility(View.GONE);
+                Toast.makeText(getApplicationContext(), "Usuario invalido: " + usrType, Toast.LENGTH_LONG).show();
+            }
+        }
 
         btnCandidatos.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -100,7 +138,9 @@ public class MainActivity extends AppCompatActivity {
     // Agregar botones al Toolbar
     @Override
     public boolean onCreateOptionsMenu (Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
+        if(usrType==1) {
+            getMenuInflater().inflate(R.menu.main, menu);
+        }
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         return true;
     }
@@ -109,7 +149,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume(){
         super.onResume();
-        config = PreferenceManager.getDefaultSharedPreferences(this);
         config = PreferenceManager.getDefaultSharedPreferences(this);
         darkTheme = config.getString("opcTheme", darkTheme);
         if (darkTheme.toString().equals("DARK")) {

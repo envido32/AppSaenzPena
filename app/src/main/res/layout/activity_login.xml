@@ -40,7 +40,7 @@
         android:inputType="textPassword"
         app:layout_widthPercent="50%"
         app:layout_heightPercent="10%"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/editTextMail"
         android:layout_centerHorizontal="true" />
 
     <Button
@@ -50,9 +50,8 @@
         android:text="@string/login"
         app:layout_widthPercent="50%"
         app:layout_heightPercent="10%"
-        android:layout_below="@+id/editTextPass"
-        android:layout_alignStart="@+id/editTextPass"
-        android:layout_marginTop="78dp" />
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/editTextPass" />
 
 
 </android.support.percent.PercentRelativeLayout>

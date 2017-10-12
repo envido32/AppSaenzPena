@@ -1,8 +1,11 @@
 package com.electiva.envido32.appsaenzpena;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -69,16 +72,24 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
 
-                usrType = 1; // DEBUG: fuerzo admin
+                //usrType = 1; // DEBUG: fuerzo admin
                 if(usrType > 0) {
+
+                    SharedPreferences prefs =
+                            getSharedPreferences("MyPref", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putInt("usrType", usrType);
+                    //editor.commit();
+                    editor.apply();
+
                     //Creamos el Intent
                     Intent intent =
                             new Intent(getBaseContext(), MainActivity.class);
 
                     //Creamos la información a pasar entre actividades
                     Bundle bundleInfo = new Bundle();
-                    bundleInfo.putInt("usrType", usrType);
                     bundleInfo.putString("usrMail", usrMail.getText().toString());
+                    //bundleInfo.putInt("usrType", usrType);
 
                     //Añadimos la información al intent
                     intent.putExtras(bundleInfo);

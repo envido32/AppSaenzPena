@@ -1,5 +1,6 @@
 package com.electiva.envido32.appsaenzpena;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -21,6 +22,9 @@ public class CandidatoInfoActivity extends AppCompatActivity {
 
     public String darkTheme;
     public SharedPreferences config;
+
+    public SharedPreferences prefs;
+    public int usrType;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,6 +51,8 @@ public class CandidatoInfoActivity extends AppCompatActivity {
         myToolbar.setSubtitle("Lista " +  bundle.getInt("lista"));
         setSupportActionBar(myToolbar);
 
+        prefs = getSharedPreferences("MyPref", Context.MODE_PRIVATE);
+        usrType = prefs.getInt("usrType", 0);
 
         //Abrimos la base de datos en modo read only
         dbVotacionHelper = new VotacionSQLiteHelper(getBaseContext(), "DB_Votacion", null, 1);
@@ -108,7 +114,9 @@ public class CandidatoInfoActivity extends AppCompatActivity {
     // Agregar botones al Toolbar
     @Override
     public boolean onCreateOptionsMenu (Menu menu) {
-        //getMenuInflater().inflate(R.menu.main, menu);
+        if(usrType==1) {
+            getMenuInflater().inflate(R.menu.main, menu);
+        }
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         return true;
     }
@@ -116,7 +124,6 @@ public class CandidatoInfoActivity extends AppCompatActivity {
     @Override
     public void onResume(){
         super.onResume();
-        config = PreferenceManager.getDefaultSharedPreferences(this);
         config = PreferenceManager.getDefaultSharedPreferences(this);
         darkTheme = config.getString("opcTheme", darkTheme);
         if (darkTheme.toString().equals("DARK")) {

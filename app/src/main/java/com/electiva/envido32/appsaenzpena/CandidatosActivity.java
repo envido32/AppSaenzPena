@@ -1,5 +1,6 @@
 package com.electiva.envido32.appsaenzpena;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -30,6 +31,9 @@ public class CandidatosActivity extends AppCompatActivity {
     public boolean opcDialog;
     public SharedPreferences config;
 
+    public SharedPreferences prefs;
+    public int usrType;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,44 +54,48 @@ public class CandidatosActivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
         adaptador = new AdaptadorCandidatos(this, datos_candidatos);
         listCandidatos = (ListView)findViewById(R.id.ListViewCandidatos);
+        prefs = getSharedPreferences("MyPref", Context.MODE_PRIVATE);
+        usrType = prefs.getInt("usrType", 0);
 
         refreshView();
 
         listCandidatos.setAdapter(adaptador);
-        listCandidatos.setOnItemLongClickListener(
-                new AdapterView.OnItemLongClickListener() {
-                    public boolean onItemLongClick(AdapterView<?> parent,
-                                                android.view.View v, int position, long id) {
 
-                        config = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-                        opcDialog = config.getBoolean("opcDialog", opcDialog);
+        if(usrType==1) {
+            listCandidatos.setOnItemLongClickListener(
+                    new AdapterView.OnItemLongClickListener() {
+                        public boolean onItemLongClick(AdapterView<?> parent,
+                                                       android.view.View v, int position, long id) {
 
-                        int lista = ((CandidatoClass)parent.getItemAtPosition(position)).getLista();
-                        Bundle bundle = new Bundle();
-                        bundle.putInt("lista", lista);
+                            config = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                            opcDialog = config.getBoolean("opcDialog", opcDialog);
 
-                        if (opcDialog) {
+                            int lista = ((CandidatoClass) parent.getItemAtPosition(position)).getLista();
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("lista", lista);
 
-                            FragmentManager fragmentManager = getSupportFragmentManager();
+                            if (opcDialog) {
 
-                            DialogDeleteCandidato dialogo = new DialogDeleteCandidato();
-                            dialogo.setArguments(bundle);
-                            dialogo.show(fragmentManager, "tagAlerta");
+                                FragmentManager fragmentManager = getSupportFragmentManager();
+
+                                DialogDeleteCandidato dialogo = new DialogDeleteCandidato();
+                                dialogo.setArguments(bundle);
+                                dialogo.show(fragmentManager, "tagAlerta");
+                            } else {
+                                //Creamos el Intent
+                                Intent intent =
+                                        new Intent(getBaseContext(), DeleteCandidatoActivity.class);
+
+                                //Añadimos la información al intent
+                                intent.putExtras(bundle);
+                                //Iniciamos la nueva actividad
+                                startActivity(intent);
+                            }
+                            return true;
+
                         }
-                        else {
-                            //Creamos el Intent
-                            Intent intent =
-                                    new Intent(getBaseContext(), DeleteCandidatoActivity.class);
-
-                            //Añadimos la información al intent
-                            intent.putExtras(bundle);
-                            //Iniciamos la nueva actividad
-                            startActivity(intent);
-                        }
-                        return true;
-
-                    }
-                });
+                    });
+        }
 
         listCandidatos.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {
@@ -170,7 +178,9 @@ public class CandidatosActivity extends AppCompatActivity {
     // Agregar botones al Toolbar
     @Override
     public boolean onCreateOptionsMenu (Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
+        if(usrType==1) {
+            getMenuInflater().inflate(R.menu.main, menu);
+        }
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         return true;
     }
