@@ -34,9 +34,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         config = PreferenceManager.getDefaultSharedPreferences(this);
-        darkTheme = config.getString("opcTheme", darkTheme);
+        darkTheme = config.getString("opcTheme", "DARK");
         if (darkTheme.toString().equals("DARK")) {
             setTheme(R.style.DarkTheme);
         }
@@ -68,8 +67,6 @@ public class MainActivity extends AppCompatActivity {
         // DEBUG
         Log.i("UsrType", "UsrType = " + usrType);
         //Toast.makeText(getApplicationContext(), "DEBUG: UsrType = " + usrType, Toast.LENGTH_LONG).show();
-
-        //TODO: Esconder botones no habilitados
 
         switch (usrType) {
             case 1: {       // Admin
@@ -116,7 +113,12 @@ public class MainActivity extends AppCompatActivity {
         //TODO: Base de datos del padron
         btnPadron.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), R.string.not_avaliable, Toast.LENGTH_LONG).show();
+                //Creamos el Intent
+                Intent intent =
+                        new Intent(getBaseContext(), PadronActivity.class);
+
+                //Iniciamos la nueva actividad
+                startActivity(intent);
             }
         });
 
@@ -150,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
     public void onResume(){
         super.onResume();
         config = PreferenceManager.getDefaultSharedPreferences(this);
-        darkTheme = config.getString("opcTheme", darkTheme);
+        darkTheme = config.getString("opcTheme", "LIGHT");
         if (darkTheme.toString().equals("DARK")) {
             setTheme(R.style.DarkTheme);
         }

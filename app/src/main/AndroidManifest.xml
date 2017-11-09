@@ -21,7 +21,9 @@
         <activity android:name=".CandidatosActivity" />
         <activity android:name=".CandidatoInfoActivity" />
         <activity android:name=".NewCandidatoActivity" />
-        <activity android:name=".DeleteCandidatoActivity"></activity>
+        <activity android:name=".DeleteCandidatoActivity" />
+        <activity android:name=".PadronActivity"></activity>
     </application>
 
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

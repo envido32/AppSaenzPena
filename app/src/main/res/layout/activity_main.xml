@@ -41,7 +41,7 @@
         android:layout_below="@+id/textSaludos"
         android:layout_centerHorizontal="true"
         app:layout_widthPercent="50%"
-        android:layout_marginTop="25dp" />
+        android:layout_marginTop="25sp" />
 
 
     <Button
@@ -52,7 +52,7 @@
         android:layout_below="@+id/buttonCandatos"
         android:layout_centerHorizontal="true"
         app:layout_widthPercent="50%"
-        android:layout_marginTop="25dp" />
+        android:layout_marginTop="25sp" />
 
     <Button
         android:id="@+id/buttonVotar"
@@ -62,7 +62,7 @@
         android:layout_below="@+id/buttonPadron"
         android:layout_centerHorizontal="true"
         app:layout_widthPercent="50%"
-        android:layout_marginTop="25dp" />
+        android:layout_marginTop="25sp" />
 
     <Button
         android:id="@+id/buttonEscrutineo"
@@ -72,8 +72,6 @@
         android:layout_below="@+id/buttonVotar"
         android:layout_centerHorizontal="true"
         app:layout_widthPercent="50%"
-        android:layout_marginTop="25dp" />
+        android:layout_marginTop="25sp" />
 
 </android.support.percent.PercentRelativeLayout>
-
-
