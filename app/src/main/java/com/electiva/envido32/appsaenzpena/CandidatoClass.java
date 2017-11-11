@@ -72,12 +72,7 @@ class AdaptadorCandidatos extends ArrayAdapter<CandidatoClass> {
 class AdaptadorEscrutineo extends RecyclerView.Adapter<AdaptadorEscrutineo.EscrutineoViewHolder> {
     public ArrayList<CandidatoClass> datos;
 
-    public AdaptadorEscrutineo(Context context, ArrayList<CandidatoClass> datos_candidatos) {
-        this.datos = datos_candidatos;
-    }
-
     public static class EscrutineoViewHolder extends RecyclerView.ViewHolder {
-        TextView escLista;
         TextView escPartido;
         TextView escNombre;
 
@@ -86,6 +81,10 @@ class AdaptadorEscrutineo extends RecyclerView.Adapter<AdaptadorEscrutineo.Escru
             escPartido = (TextView)itemView.findViewById(R.id.LblPartido);
             escNombre = (TextView)itemView.findViewById(R.id.LblNombre);
         }
+    }
+
+    public AdaptadorEscrutineo(ArrayList<CandidatoClass> datos_candidatos) {
+        datos = datos_candidatos;
     }
 
     @Override
@@ -98,7 +97,7 @@ class AdaptadorEscrutineo extends RecyclerView.Adapter<AdaptadorEscrutineo.Escru
     @Override
     public void onBindViewHolder(EscrutineoViewHolder candidatoViewHolder, int position) {
         candidatoViewHolder.escNombre.setText(datos.get(position).getNombre());
-        candidatoViewHolder.escLista.setText("Lista " + datos.get(position).getLista() + " - "+ datos.get(position).getPartido());
+        candidatoViewHolder.escPartido.setText("Lista " + datos.get(position).getLista() + " - "+ datos.get(position).getPartido());
     }
 
     @Override

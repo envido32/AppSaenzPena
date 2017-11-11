@@ -16,7 +16,7 @@ public class EscrutineoActivity extends AppCompatActivity {
 
     public ArrayList<CandidatoClass> datos_candidatos = new ArrayList<>();
     public AdaptadorEscrutineo adaptador;
-    public  RecyclerView rv;
+    public RecyclerView rv;
     public VotacionSQLiteHelper dbVotacionHelper;
     public SQLiteDatabase dbVotacion;
     public Toolbar myToolbar;
@@ -30,20 +30,17 @@ public class EscrutineoActivity extends AppCompatActivity {
         myToolbar.setTitle(R.string.padron);
         setSupportActionBar(myToolbar);
 
-
         rv = (RecyclerView)findViewById(R.id.RecView);
         rv.setHasFixedSize(true);
-        /*
+
         LinearLayoutManager llm = new LinearLayoutManager(getBaseContext());
         rv.setLayoutManager(llm);
-        */
-        adaptador = new AdaptadorEscrutineo(getBaseContext(), datos_candidatos);
+
+        adaptador = new AdaptadorEscrutineo(datos_candidatos);
         rv.setAdapter(adaptador);
 
         refreshView();
-
-
-    }
+        }
 
     public void refreshView() {
         //adaptador.clear();
