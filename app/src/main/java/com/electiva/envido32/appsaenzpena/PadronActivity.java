@@ -4,17 +4,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.View;
-import android.view.Window;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 public class PadronActivity extends AppCompatActivity {
 
     public Toolbar myToolbar;
     public WebView myWebView;
-    public ProgressBar proBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
