@@ -72,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
 
-                //usrType = 1; // DEBUG: fuerzo admin
+                usrType = 1; // DEBUG: fuerzo admin
                 if(usrType > 0) {
 
                     SharedPreferences prefs =

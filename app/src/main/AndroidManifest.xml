@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.electiva.envido32.appsaenzpena">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -22,8 +24,8 @@
         <activity android:name=".CandidatoInfoActivity" />
         <activity android:name=".NewCandidatoActivity" />
         <activity android:name=".DeleteCandidatoActivity" />
-        <activity android:name=".PadronActivity"></activity>
+        <activity android:name=".PadronActivity" />
+        <activity android:name=".EscrutineoActivity"></activity>
     </application>
 
-    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

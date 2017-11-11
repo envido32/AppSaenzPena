@@ -30,7 +30,6 @@ public class CandidatosActivity extends AppCompatActivity {
     public String darkTheme;
     public boolean opcDialog;
     public SharedPreferences config;
-
     public SharedPreferences prefs;
     public int usrType;
 

@@ -110,7 +110,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //TODO: Base de datos del padron
         btnPadron.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //Creamos el Intent
@@ -132,7 +131,12 @@ public class MainActivity extends AppCompatActivity {
         //TODO: Activity de recuento
         btnEscrutineo.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), R.string.not_avaliable, Toast.LENGTH_LONG).show();
+                //Creamos el Intent
+                Intent intent =
+                        new Intent(getBaseContext(), EscrutineoActivity.class);
+
+                //Iniciamos la nueva actividad
+                startActivity(intent);
             }
         });
     }
