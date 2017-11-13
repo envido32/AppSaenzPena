@@ -24,6 +24,7 @@ public class PadronActivity extends AppCompatActivity {
         myWebView = (WebView) findViewById(R.id.webview);
         myWebView.getSettings().setJavaScriptEnabled(true);
         myWebView.loadUrl("https://www.padron.gob.ar/");
+        //TODO: Agregar ProgressDialog
     }
 
     // Agregar botones al Toolbar
