@@ -205,12 +205,12 @@ public class SplashActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Boolean result) {
             if(result)
-                Toast.makeText(SplashActivity.this, "Tarea finalizada!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SplashActivity.this, "Base de datos cargada!", Toast.LENGTH_SHORT).show();
         }
 
         @Override
         protected void onCancelled() {
-            Toast.makeText(SplashActivity.this, "Tarea cancelada!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SplashActivity.this, "Carga de base de datos cancelada!", Toast.LENGTH_SHORT).show();
         }
     }
 }

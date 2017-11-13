@@ -1,16 +1,23 @@
 package com.electiva.envido32.appsaenzpena;
 
+import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.View;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 public class PadronActivity extends AppCompatActivity {
 
     public Toolbar myToolbar;
     public WebView myWebView;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,10 +28,36 @@ public class PadronActivity extends AppCompatActivity {
         myToolbar.setTitle(R.string.padron);
         setSupportActionBar(myToolbar);
 
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
         myWebView = (WebView) findViewById(R.id.webview);
+        myWebView.setWebViewClient(new MyWebViewClient());
         myWebView.getSettings().setJavaScriptEnabled(true);
         myWebView.loadUrl("https://www.padron.gob.ar/");
-        //TODO: Agregar ProgressDialog
+    }
+
+    private class MyWebViewClient extends WebViewClient {
+        @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            super.onPageStarted(view, url, favicon);
+            if(progressBar!=null){
+                progressBar.setVisibility(View.VISIBLE); // To Show ProgressBar
+            }
+        }
+
+        @Override
+        public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+            Toast.makeText(PadronActivity.this, "Error de carga!", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            super.onPageFinished(view, url);
+            if(progressBar!=null){
+                progressBar.setVisibility(View.INVISIBLE);  //To Hide ProgressBar
+
+            }
+        }
     }
 
     // Agregar botones al Toolbar
