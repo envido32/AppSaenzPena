@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
         //TODO: Activity para votar
         btnVotar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), R.string.not_avaliable, Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "#NoAlVotoElectronico", Toast.LENGTH_LONG).show();
             }
         });
 

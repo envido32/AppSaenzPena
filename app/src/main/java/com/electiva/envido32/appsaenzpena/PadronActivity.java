@@ -2,9 +2,9 @@ package com.electiva.envido32.appsaenzpena;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.preference.PreferenceManager;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -26,6 +26,9 @@ public class PadronActivity extends AppCompatActivity {
 
     public Toolbar myToolbar;
     public WebView myWebView;
+    int dni;
+    int distrito;
+    int sexo; // 0 = male, 1 = female;
     private ProgressBar progressBar;
     private static final long WAIT_JAVA_DELAY = 500;
 
@@ -33,6 +36,7 @@ public class PadronActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_padron);
 
         myToolbar = (Toolbar) findViewById(R.id.appbar);
@@ -40,6 +44,10 @@ public class PadronActivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
+        SharedPreferences config;
+        config = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        //distrito = config.getInt("opcDistrito", -1);
 
         myWebView = (WebView) findViewById(R.id.webview);
         myWebView.setWebViewClient(new MyWebViewClient());
@@ -64,36 +72,14 @@ public class PadronActivity extends AppCompatActivity {
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
-
-            int dni = 123456;
-            int distrito = 4;
-            int sexo = 1; // 0 = male, 1 = female;
-
-            try {
-                Thread.sleep(WAIT_JAVA_DELAY);
-            } catch(InterruptedException e) {}
-
-            SharedPreferences config;
-            config = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-            distrito = config.getInt("opcDistrito", -1);
-
-            String js = "javascript:" +
-                    "document.getElementById('matricula').value='"+dni+"';" +
-                    "document.getElementById('distrito').value='"+distrito+"';" +
-                    "document.getElementsByName('sexo')['"+sexo+"'].checked=true;";
-                view.evaluateJavascript(js, new ValueCallback<String>() {
-                    @Override
-                    public void onReceiveValue(String s) {
-                    }
-                });
-
-
             if(progressBar!=null){
                 progressBar.setVisibility(View.INVISIBLE);  //To Hide ProgressBar
 
             }
         }
     }
+
+
 
     // Agregar botones al Toolbar
     @Override
@@ -130,19 +116,14 @@ public class PadronActivity extends AppCompatActivity {
 
                 myWebView.setVisibility(View.GONE);
                 IntentIntegrator integrator = new IntentIntegrator(this);
-                integrator.setPrompt("Scan a barcode or QRcode");
-                integrator.setOrientationLocked(false);
-                integrator.initiateScan();
+                integrator.setPrompt("Lea el codigo frontal del DNI");
+                integrator.setOrientationLocked(true);
 
-//        Use this for more customization
-//        IntentIntegrator integrator = new IntentIntegrator(this);
         integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
-//        integrator.setPrompt("Scan a barcode");
 //        integrator.setCameraId(0);  // Use a specific camera of the device
-//        integrator.setBeepEnabled(false);
+        integrator.setBeepEnabled(true);
         integrator.setBarcodeImageEnabled(true);
-//        integrator.initiateScan();
-
+        integrator.initiateScan();
                 return true;
             }
 
@@ -161,10 +142,44 @@ public class PadronActivity extends AppCompatActivity {
                 Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
             } else {
                 myWebView.setVisibility(View.VISIBLE);
-                String pdfdnicode;
-                pdfdnicode = result.getContents();
+                String barcode = result.getContents();
+                // Should Read: 00000000000@APELLIDO@NOMBRE@M@99999999@01/01/1900@01/01/1900
+                String[] info=barcode.split("@");
+                /*
+                for(int i=0; i<info.length; i++){
+                    Toast.makeText(this, "Valor: " +i+ " - "+info[i], Toast.LENGTH_LONG).show();
+                }
                 Toast.makeText(this, "Readed: "+pdfdnicode, Toast.LENGTH_LONG).show();
+                */
+                String orden = info[0];
+                String apellido = info[1];
+                String nombre = info[2];
+                Toast.makeText(this, "Gracias " + nombre + " " + apellido, Toast.LENGTH_LONG).show();
+                //String sexo = info[3];
+                switch (info[3]) {
+                    case "M": sexo = 0; break;
+                    case "F": sexo = 1; break;
+                    default:
+                }
+                //String dni = info[4];
+                dni = Integer.parseInt(info[4]);
+                String emicion = info[5];
+                String vencimiento = info[6];
 
+                SharedPreferences config;
+                config = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                distrito = Integer.parseInt(config.getString("opcDistrito", "-1"));
+
+                String js = "javascript:" +
+                        "document.getElementById('matricula').value='"+dni+"';" +
+                        "document.getElementById('distrito').value='"+distrito+"';" +
+                        "document.getElementsByName('sexo')['"+sexo+"'].checked=true;";
+
+                myWebView.evaluateJavascript(js, new ValueCallback<String>() {
+                    @Override
+                    public void onReceiveValue(String s) {
+                    }
+                });
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
