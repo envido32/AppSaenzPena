@@ -1,11 +1,13 @@
 package com.electiva.envido32.appsaenzpena;
 
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
+import android.webkit.ValueCallback;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
@@ -53,6 +55,26 @@ public class PadronActivity extends AppCompatActivity {
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
+
+            int dni = 123456;
+            int distrito = 4;
+            int sexo = 1; // 0 = male, 1 = female;
+
+            try {
+                Thread.sleep(1000);
+            } catch(InterruptedException e) {}
+
+            String js = "javascript:" +
+                    "document.getElementById('matricula').value='"+dni+"';" +
+                    "document.getElementById('distrito').value='"+distrito+"';" +
+                    "document.getElementsByName('sexo')['"+sexo+"'].checked=true;";
+                view.evaluateJavascript(js, new ValueCallback<String>() {
+                    @Override
+                    public void onReceiveValue(String s) {
+                    }
+                });
+
+
             if(progressBar!=null){
                 progressBar.setVisibility(View.INVISIBLE);  //To Hide ProgressBar
 
