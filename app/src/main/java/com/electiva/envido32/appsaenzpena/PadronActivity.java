@@ -1,11 +1,15 @@
 package com.electiva.envido32.appsaenzpena;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.os.Build;
+import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.ValueCallback;
 import android.webkit.WebResourceError;
@@ -15,11 +19,16 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
+
 public class PadronActivity extends AppCompatActivity {
 
     public Toolbar myToolbar;
     public WebView myWebView;
     private ProgressBar progressBar;
+    private static final long WAIT_JAVA_DELAY = 500;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,8 +70,12 @@ public class PadronActivity extends AppCompatActivity {
             int sexo = 1; // 0 = male, 1 = female;
 
             try {
-                Thread.sleep(1000);
+                Thread.sleep(WAIT_JAVA_DELAY);
             } catch(InterruptedException e) {}
+
+            SharedPreferences config;
+            config = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+            distrito = config.getInt("opcDistrito", -1);
 
             String js = "javascript:" +
                     "document.getElementById('matricula').value='"+dni+"';" +
@@ -85,6 +98,10 @@ public class PadronActivity extends AppCompatActivity {
     // Agregar botones al Toolbar
     @Override
     public boolean onCreateOptionsMenu (Menu menu) {
+        //if(usrType==1) {
+        if(true) { // DEBUG
+            getMenuInflater().inflate(R.menu.main, menu);
+        }
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         return true;
     }
@@ -93,5 +110,64 @@ public class PadronActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    // Configurar botones del toolbar
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()) {
+            case R.id.action_settings: {
+                //Creamos el Intent
+                Intent intent =
+                        new Intent(getBaseContext(), SettingsActivity.class);
+
+                //Iniciamos la nueva actividad
+                startActivity(intent);
+                return true;
+            }
+
+            case R.id.action_add: {
+
+                myWebView.setVisibility(View.GONE);
+                IntentIntegrator integrator = new IntentIntegrator(this);
+                integrator.setPrompt("Scan a barcode or QRcode");
+                integrator.setOrientationLocked(false);
+                integrator.initiateScan();
+
+//        Use this for more customization
+//        IntentIntegrator integrator = new IntentIntegrator(this);
+        integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
+//        integrator.setPrompt("Scan a barcode");
+//        integrator.setCameraId(0);  // Use a specific camera of the device
+//        integrator.setBeepEnabled(false);
+        integrator.setBarcodeImageEnabled(true);
+//        integrator.initiateScan();
+
+                return true;
+            }
+
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (result != null) {
+            if (result.getContents() == null) {
+                myWebView.setVisibility(View.GONE);
+                Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
+            } else {
+                myWebView.setVisibility(View.VISIBLE);
+                String pdfdnicode;
+                pdfdnicode = result.getContents();
+                Toast.makeText(this, "Readed: "+pdfdnicode, Toast.LENGTH_LONG).show();
+
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 }
