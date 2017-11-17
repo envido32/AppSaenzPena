@@ -25,7 +25,8 @@
         <activity android:name=".NewCandidatoActivity" />
         <activity android:name=".DeleteCandidatoActivity" />
         <activity android:name=".PadronActivity" />
-        <activity android:name=".EscrutineoActivity"></activity>
+        <activity android:name=".EscrutineoActivity" />
+        <activity android:name=".DistritoActivity"></activity>
     </application>
 
 </manifest>

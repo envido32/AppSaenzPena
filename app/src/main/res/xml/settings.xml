@@ -15,6 +15,16 @@
                 android:title="Utilizar dialogos"
                 android:summary="Si las listas de candidatos no refrescan al cambiarlas desactivar esta opcion." />
 
+            <Preference
+                android:key="opcGPS"
+                android:summary="Elegir distrito por GPS"
+                android:title="Distrito por GPS" >
+                <intent android:targetClass="com.electiva.envido32.appsaenzpena.DistritoActivity"
+                    android:targetPackage="com.electiva.envido32.appsaenzpena">
+                    <extra android:name="EXTRA_KEY" android:value="yourValue" />
+                </intent>
+            </Preference>
+
             <ListPreference
                 android:key="opcDistrito"
                 android:title="Distrito"
@@ -22,5 +32,6 @@
                 android:dialogTitle="Seleccione su distrito"
                 android:entries="@array/list_titles_distritos"
                 android:entryValues="@array/list_values_distritos" />
+
         </PreferenceCategory>
 </PreferenceScreen>
