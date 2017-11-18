@@ -1,5 +1,6 @@
 package com.electiva.envido32.appsaenzpena;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -116,7 +117,7 @@ public class PadronActivity extends AppCompatActivity {
 
                 myWebView.setVisibility(View.GONE);
                 IntentIntegrator integrator = new IntentIntegrator(this);
-                integrator.setPrompt("Lea el codigo frontal del DNI");
+                integrator.setPrompt("Lea el codigo de barras al frente del DNI");
                 integrator.setOrientationLocked(true);
 
         integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
@@ -166,9 +167,10 @@ public class PadronActivity extends AppCompatActivity {
                 String emicion = info[5];
                 String vencimiento = info[6];
 
-                SharedPreferences config;
-                config = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-                distrito = Integer.parseInt(config.getString("opcDistrito", "-1"));
+                SharedPreferences prefs;
+                prefs = getSharedPreferences("MyPref", Context.MODE_PRIVATE);
+                //distrito = Integer.parseInt(prefs.getString("opcDistrito", "-1"));
+                distrito = prefs.getInt("opcDistrito", -1);
 
                 String js = "javascript:" +
                         "document.getElementById('matricula').value='"+dni+"';" +

@@ -45,11 +45,11 @@
         <item>Santiago del Estero</item>
         <item>Tucumán</item>
         <item>Tierra del Fuego</item>
-        <item>Extranjeros - Buenos Aires</item>
-        <item>Argentinos en el exterior</item>
+        <item>Extranjeros</item>
+        <item>En el exterior</item>
     </string-array>
 
-    <string-array name="list_values_distritos">
+    <integer-array name="list_values_distritos">
         <item>1</item>
         <item>2</item>
         <item>3</item>
@@ -76,5 +76,5 @@
         <item>24</item>
         <item>29</item>
         <item>30</item>
-    </string-array>
+    </integer-array>
 </resources>

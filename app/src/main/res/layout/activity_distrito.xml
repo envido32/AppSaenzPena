@@ -10,25 +10,29 @@
         android:id="@+id/imgbtn_gps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
         app:srcCompat="@android:drawable/ic_menu_compass"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true" />
+        android:layout_centerHorizontal="true"
+        android:text="Buscar por GPS"
+        android:layout_marginTop="60sp" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/text_gps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/spinner"
-        android:layout_alignEnd="@+id/imgbtn_gps"
-        android:layout_marginBottom="67dp"
-        android:text="TextView" />
+        android:text="Posicion no detectada."
+        android:layout_below="@+id/imgbtn_gps"
+        android:layout_centerHorizontal="true"
+        android:textSize="20sp"
+        android:layout_marginTop="60sp" />
+
+    <Spinner
+        android:id="@+id/spinner_distrito"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        app:layout_widthPercent="80%"
+        android:entries="@array/list_titles_distritos"
+        android:entryValues="@array/list_values_distritos" />
 
 </android.support.percent.PercentRelativeLayout>

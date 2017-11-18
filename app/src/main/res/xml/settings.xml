@@ -18,20 +18,12 @@
             <Preference
                 android:key="opcGPS"
                 android:summary="Elegir distrito por GPS"
-                android:title="Distrito por GPS" >
+                android:title="Distrito" >
                 <intent android:targetClass="com.electiva.envido32.appsaenzpena.DistritoActivity"
                     android:targetPackage="com.electiva.envido32.appsaenzpena">
                     <extra android:name="EXTRA_KEY" android:value="yourValue" />
                 </intent>
             </Preference>
-
-            <ListPreference
-                android:key="opcDistrito"
-                android:title="Distrito"
-                android:summary="Seleccione su distrito"
-                android:dialogTitle="Seleccione su distrito"
-                android:entries="@array/list_titles_distritos"
-                android:entryValues="@array/list_values_distritos" />
 
         </PreferenceCategory>
 </PreferenceScreen>

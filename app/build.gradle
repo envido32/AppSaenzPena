@@ -30,6 +30,7 @@ dependencies {
     compile 'com.android.support:percent:26.+'
     compile 'com.android.support:recyclerview-v7:26.0.0-alpha1'
     compile 'com.journeyapps:zxing-android-embedded:3.4.0'
+    compile 'com.google.android.gms:play-services-location:9.4.0'
     testCompile 'junit:junit:4.12'
 }
 
