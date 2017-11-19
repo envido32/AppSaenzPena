@@ -1,7 +1,9 @@
 package com.electiva.envido32.appsaenzpena;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -97,15 +100,24 @@ class AdaptadorEscrutineo extends RecyclerView.Adapter<AdaptadorEscrutineo.Escru
     public ArrayList<CandidatoClass> datos;
 
     public static class EscrutineoViewHolder extends RecyclerView.ViewHolder {
-        TextView escPartido;
-        TextView escNombre;
-        TextView escCount;
+        public TextView escPartido;
+        public TextView escNombre;
+        public TextView escCount;
+        public Button addBtn;
+        public Button lessBtn;
 
-        EscrutineoViewHolder(View itemView) {
+        EscrutineoViewHolder(final View itemView) {
             super(itemView);
             escPartido = (TextView)itemView.findViewById(R.id.LblPartido);
             escNombre = (TextView)itemView.findViewById(R.id.LblNombre);
             escCount = (TextView)itemView.findViewById(R.id.LblCuenta);
+
+            addBtn = (Button)itemView.findViewById(R.id.buttonAdd);
+            addBtn.setVisibility(View.VISIBLE);
+
+            lessBtn = (Button)itemView.findViewById(R.id.buttonLess);
+            lessBtn.setVisibility(View.VISIBLE);
+
         }
     }
 
@@ -121,10 +133,26 @@ class AdaptadorEscrutineo extends RecyclerView.Adapter<AdaptadorEscrutineo.Escru
     }
 
     @Override
-    public void onBindViewHolder(EscrutineoViewHolder candidatoViewHolder, int position) {
+    public void onBindViewHolder(final EscrutineoViewHolder candidatoViewHolder, final int position) {
         candidatoViewHolder.escNombre.setText(datos.get(position).getNombre());
         candidatoViewHolder.escPartido.setText("Lista " + datos.get(position).getLista() + " - "+ datos.get(position).getPartido());
         candidatoViewHolder.escCount.setText("( " + datos.get(position).getCount() + " )");
+
+        Button buttonAdd = candidatoViewHolder.addBtn;
+        buttonAdd.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                datos.get(position).addCount();
+                candidatoViewHolder.escCount.setText("( " + datos.get(position).getCount() + " )");
+            }
+        });
+
+        Button buttonLess = candidatoViewHolder.lessBtn;
+        buttonLess.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                datos.get(position).lessCount();
+                candidatoViewHolder.escCount.setText("( " + datos.get(position).getCount() + " )");
+            }
+        });
     }
 
     @Override
@@ -135,6 +163,7 @@ class AdaptadorEscrutineo extends RecyclerView.Adapter<AdaptadorEscrutineo.Escru
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
+
     }
 
 }

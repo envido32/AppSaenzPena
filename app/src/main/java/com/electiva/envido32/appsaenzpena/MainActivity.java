@@ -121,14 +121,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //TODO: Activity para votar
+
         btnVotar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "#NoAlVotoElectronico", Toast.LENGTH_LONG).show();
             }
         });
 
-        //TODO: Activity de recuento
+
         btnEscrutineo.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //Creamos el Intent
