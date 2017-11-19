@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -81,6 +82,13 @@ class AdaptadorCandidatos extends ArrayAdapter<CandidatoClass> {
         TextView lblPartido = (TextView)item.findViewById(R.id.LblPartido);
         lblPartido.setText("Lista " + datos.get(position).getLista() + " - "+ datos.get(position).getPartido());
 
+        Button addBtn = (Button)item.findViewById(R.id.buttonAdd);
+        addBtn.setVisibility(View.GONE);
+
+
+        Button lessBtn = (Button)item.findViewById(R.id.buttonLess);
+        lessBtn.setVisibility(View.GONE);
+
         return(item);
     }
 }
@@ -116,7 +124,7 @@ class AdaptadorEscrutineo extends RecyclerView.Adapter<AdaptadorEscrutineo.Escru
     public void onBindViewHolder(EscrutineoViewHolder candidatoViewHolder, int position) {
         candidatoViewHolder.escNombre.setText(datos.get(position).getNombre());
         candidatoViewHolder.escPartido.setText("Lista " + datos.get(position).getLista() + " - "+ datos.get(position).getPartido());
-        candidatoViewHolder.escCount.setText("Votos: " + datos.get(position).getCount());
+        candidatoViewHolder.escCount.setText("( " + datos.get(position).getCount() + " )");
     }
 
     @Override
