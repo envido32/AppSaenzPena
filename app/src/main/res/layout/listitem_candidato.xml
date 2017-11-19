@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
-    android:padding="3sp" >
+    android:padding="3sp">
 
     <ImageView
         android:id="@+id/imgPartido"
@@ -16,7 +16,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="3sp">
+        android:padding="3sp"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/imgPartido">
 
         <TextView
             android:id="@+id/LblNombre"
@@ -31,7 +33,33 @@
             android:layout_height="wrap_content"
             android:textStyle="normal"
             android:textSize="12sp" />
-
     </LinearLayout>
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="3sp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true">
+
+        <TextView
+            android:id="@+id/LblCuenta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textStyle="normal"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/buttonAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+"
+            app:layout_widthPercent="5%"
+            app:layout_heightPercent="5%"
+            android:layout_alignStart="@+id/editTextPass" />
+
+    </LinearLayout>
+</android.support.percent.PercentRelativeLayout>

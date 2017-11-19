@@ -15,11 +15,13 @@ public class CandidatoClass {
     private int lista;
     private String partido;
     private String nombre;
+    private int cuenta;
 
     public CandidatoClass(int lis, String part, String nom){
         lista = lis;
         partido = part;
         nombre = nom;
+        int cuenta = 0;
     }
 
     public void setLista(int lis){
@@ -34,6 +36,16 @@ public class CandidatoClass {
         nombre = nom;
     }
 
+    public void addCount(){
+        cuenta++;
+    }
+
+    public void lessCount(){
+        if(cuenta>0){
+            cuenta--;
+        }
+    }
+
     public int getLista(){
         return lista;
     }
@@ -44,6 +56,10 @@ public class CandidatoClass {
 
     public String getNombre(){
         return nombre;
+    }
+
+    public int getCount(){
+        return cuenta;
     }
 }
 
@@ -75,11 +91,13 @@ class AdaptadorEscrutineo extends RecyclerView.Adapter<AdaptadorEscrutineo.Escru
     public static class EscrutineoViewHolder extends RecyclerView.ViewHolder {
         TextView escPartido;
         TextView escNombre;
+        TextView escCount;
 
         EscrutineoViewHolder(View itemView) {
             super(itemView);
             escPartido = (TextView)itemView.findViewById(R.id.LblPartido);
             escNombre = (TextView)itemView.findViewById(R.id.LblNombre);
+            escCount = (TextView)itemView.findViewById(R.id.LblCuenta);
         }
     }
 
@@ -98,6 +116,7 @@ class AdaptadorEscrutineo extends RecyclerView.Adapter<AdaptadorEscrutineo.Escru
     public void onBindViewHolder(EscrutineoViewHolder candidatoViewHolder, int position) {
         candidatoViewHolder.escNombre.setText(datos.get(position).getNombre());
         candidatoViewHolder.escPartido.setText("Lista " + datos.get(position).getLista() + " - "+ datos.get(position).getPartido());
+        candidatoViewHolder.escCount.setText("Votos: " + datos.get(position).getCount());
     }
 
     @Override

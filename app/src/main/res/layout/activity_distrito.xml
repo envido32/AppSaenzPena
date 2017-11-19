@@ -8,13 +8,14 @@
 
     <ImageButton
         android:id="@+id/imgbtn_gps"
+        style="@android:style/Widget.Holo.ImageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/ic_menu_compass"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="60sp"
         android:text="Buscar por GPS"
-        android:layout_marginTop="60sp" />
+        app:srcCompat="@android:drawable/ic_dialog_map" />
 
     <TextView
         android:id="@+id/text_gps"
