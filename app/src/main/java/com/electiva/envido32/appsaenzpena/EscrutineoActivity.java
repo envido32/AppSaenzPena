@@ -144,6 +144,12 @@ public class EscrutineoActivity extends AppCompatActivity {
             }
 
             case R.id.action_add: {
+                int count=0;
+                for (int i =0 ; i<datos_candidatos.size(); i++){
+                    count+=datos_candidatos.get(i).getCount();
+                }
+                Toast.makeText(getApplicationContext(), "#NoAlVotoElectronico \n" +
+                        "Votos totales: " + count, Toast.LENGTH_LONG).show();
                 return true;
             }
 
