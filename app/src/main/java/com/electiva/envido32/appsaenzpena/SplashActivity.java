@@ -1,10 +1,15 @@
 package com.electiva.envido32.appsaenzpena;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,6 +23,10 @@ public class SplashActivity extends AppCompatActivity {
 
     private static final long SPLASH_SCREEN_DELAY = 500;
     private LoadDBAsync tarea1;
+    private NotificationCompat.Builder mBuilder;
+    private Intent notIntent;
+    private PendingIntent contIntent;
+    private NotificationManager mNotificationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +45,21 @@ public class SplashActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         setContentView(R.layout.activity_splash);
+
+        mBuilder =
+                new NotificationCompat.Builder(SplashActivity.this)
+                        .setSmallIcon(android.R.drawable.stat_sys_warning)
+                        .setLargeIcon((((BitmapDrawable)getResources()
+                                .getDrawable(R.drawable.saenzpena)).getBitmap()))
+                        .setContentTitle("Mensaje de Alerta")
+                        .setContentText("Base de datos cargada!.")
+                        .setContentInfo("4")
+                        .setTicker("Alerta!");
+
+        notIntent = new Intent(SplashActivity.this, LoginActivity.class);
+        contIntent = PendingIntent.getActivity(SplashActivity.this, 0, notIntent, 0);
+        mBuilder.setContentIntent(contIntent);
+        mNotificationManager =(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         tarea1 = new LoadDBAsync();
         tarea1.execute();
@@ -205,7 +229,10 @@ public class SplashActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Boolean result) {
             if(result)
-                Toast.makeText(SplashActivity.this, "Base de datos cargada!", Toast.LENGTH_SHORT).show();
+                //TODO: Reemplazar por Notificacion
+
+            mNotificationManager.notify(1, mBuilder.build());
+            Toast.makeText(SplashActivity.this, "Base de datos cargada!", Toast.LENGTH_SHORT).show();
         }
 
         @Override
